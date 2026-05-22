@@ -406,7 +406,7 @@ textarea { resize: vertical; min-height: 80px; }
 <header class="site-header">
   <h1>Cahier de préparation — Offsite stratégique</h1>
   <p class="subtitle">Palmex International Inc. | Build to Scale 2026–2029</p>
-  <span class="badge">Lac-à-l'épaule — 8 et 9 juin 2026</span>
+  <span class="badge">Lac-à-l'épaule — 6 et 7 juillet 2026</span>
 </header>
 
 <div class="container">
@@ -501,7 +501,7 @@ textarea { resize: vertical; min-height: 80px; }
           </div>
           <div class="phase-item">
             <strong>Échéance finale : le Lac-à-l'épaule</strong>
-            <p>Présentation de la version finale en PowerPoint devant l'équipe pour obtenir un plan d'action séquencé et des engagements fermes. <strong>8 et 9 juin 2026.</strong></p>
+            <p>Présentation de la version finale en PowerPoint devant l'équipe pour obtenir un plan d'action séquencé et des engagements fermes. <strong>6 et 7 juillet 2026.</strong></p>
           </div>
         </div>
       </div>
@@ -758,6 +758,112 @@ let objectiveCount = 0;
 const MAX_OBJECTIVES = 5;
 const MAX_PROJECTS = 5;
 let saveTimeout = null;
+
+// ============================================================
+// DEFAULT PRE-FILLED DATA PER PARTICIPANT
+// ============================================================
+const DEFAULT_DATA = {
+  president: {
+    participant: 'president',
+    // Section 1 — Enjeux d'entreprise
+    enjeu_entreprise_1: "VÉLOCITÉ VERSUS COMPÉTITION\nBrand awareness, positionnement versus les compétiteurs chinois, faire connaître notre proposition de valeur, mais surtout se faire connaître. Présence mondiale.",
+    enjeu_entreprise_2: "CONTRÔLE DU RÉSEAU DE DISTRIBUTION\nPalmmex Asia : Gestion quotidienne, différence de mentalité, liste des pays, procédures différentes, ajustement, frustration, contrôle, frais variables versus fixe.",
+    enjeu_entreprise_3: "UNIDIMENSIONALITÉ DE L'OFFRE ET DES SEGMENTS DÉSERVIS\nR&D, innovation, développement de produits, lancement, go to market, intégration, nouveaux produits monétisables dans notre réseau.",
+    enjeu_entreprise_4: "CAPITALISATION\nVentes, réseau distribution, croissance, playbook, exposure, compétition, compétition low cost, expansion, etc.",
+    enjeu_entreprise_5: "CAPACITÉ D'ATTIRER LES BONS TALENTS\nRH : rémunération de l'équipe dans un contexte mondial incertain et instable.",
+    // Section 2 — Maturité
+    _maturityCount: 6,
+    maturity_fn_1: "Exposure", maturity_score_1: "5", maturity_target_1: "7",
+    maturity_fn_2: "Vision stratégique", maturity_score_2: "8", maturity_target_2: "10",
+    maturity_fn_3: "Expansion / croissance", maturity_score_3: "8", maturity_target_3: "10",
+    maturity_fn_4: "Finance", maturity_score_4: "5", maturity_target_4: "5",
+    maturity_fn_5: "Partenariat stratégique", maturity_score_5: "6", maturity_target_5: "7",
+    maturity_fn_6: "Culture", maturity_score_6: "7", maturity_target_6: "9",
+    // Section 3 — Enjeux département
+    enjeu_dept_1: "DÉVELOPPEMENT CORPORATIF LIMITÉ PAR LA FAIBLESSE DES CAPACITÉS D'EXÉCUTER DE L'ENTREPRISE\nClarification des rôles et responsabilités. Gouvernance Président, DG et équipe de direction.",
+    enjeu_dept_2: "CAPACITÉ D'INVESTIR LIMITÉE PAR POSITION FINANCIÈRE\nInnovation, R&D, nouveaux produits.",
+    enjeu_dept_3: "DÉPENDANCE DES VENTES SUR PRÉSIDENT\nPositionnement stratégique de la marque, notoriété de la marque, se faire connaître, exposure, valeur versus prix.",
+    enjeu_dept_4: "Palmmex Asia : 25% de notre business sans avoir aucun contrôle…",
+    enjeu_dept_5: "Vision moyen/long terme et alignement de l'équipe.",
+    // Section 4 — Objectifs & Projets
+    _objectiveCount: 5,
+    // OBJ 1 — Renforcer notre réseau de distribution
+    obj_1_name: "RENFORCER NOTRE RÉSEAU DE DISTRIBUTION — Décider le rôle de Palmmex Asia",
+    '_projCount_1': 5,
+    obj_1_proj_1_name: "Reprendre le contrôle stratégique, financier et opérationnel",
+    obj_1_proj_1_results: "Enjeux clés :\n• Manque de contrôle réel (49/51, aucun accès bancaire, finances non vérifiées)\n• Validation faible des inventaires, dépenses, loyers, marges\n• Entente 50/50 vs réalité opérationnelle floue\n• Communication difficile (Vichan, lenteur, manque de transparence)\n• Aucun comité de direction impliqué\n• Dividendes limités vs investissement de 650k\n• Risques liés aux partenaires (conflits d'intérêts Rajendra / Viro / autres)\n\nAxes du projet :\n• Renégocier ou clarifier la convention d'actionnaires\n• Mettre en place des mécanismes de contrôle financier (audit, accès aux comptes)\n• Gouvernance formelle (comité, reporting mensuel, KPI obligatoires)\n• Clarifier les rôles et responsabilités opérationnels",
+    obj_1_proj_1_impact: "critique",
+    obj_1_proj_2_name: "Assurer l'intégrité du brand et éviter la dilution",
+    obj_1_proj_2_results: "Enjeux clés :\n• Palmex Intl ne contrôle pas entièrement le marketing\n• Qualité variable (Asian Reed / African Reed)\n• Produits concurrents vendus via partenaires\n• Image négative potentielle (Palmex à 2M → perception faible)\n• Marque Palmmex Asia non protégée\n• Standardisation insuffisante (packaging, étiquettes)\n\nAxes du projet :\n• Reprendre le contrôle complet du marketing global\n• Imposer des standards qualité produits et branding\n• Protection juridique des marques (Palmmex Asia)\n• Stratégie claire : quels produits sont \"Palmex-approved\"\n• Uniformiser packaging, étiquetage, positionnement",
+    obj_1_proj_2_impact: "eleve",
+    obj_1_proj_3_name: "Maximiser les profits et corriger les incohérences financières",
+    obj_1_proj_3_results: "Enjeux clés :\n• 8% refacturé → insuffisant ou mal structuré\n• Absence de revenus sur les ventes Homebuilders\n• Commissions incohérentes pour l'équipe Palmex\n• Perte de 50% du profit (structure actuelle)\n• Difficulté à récupérer le cash rapidement\n\nAxes du projet :\n• Revoir le modèle de redevances (8% vs réel coût)\n• Ajouter frais marketing (+2% ou autre)\n• Réviser les commissions internes\n• Clarifier structure de profit-sharing\n• Accélérer les mécanismes de retour de cash",
+    obj_1_proj_3_impact: "critique",
+    obj_1_proj_4_name: "Réduire les risques opérationnels et dépendances critiques",
+    obj_1_proj_4_results: "Enjeux clés :\n• Dépendance à un seul site de thermoformage\n• PVC en sous-traitance\n• Aucun ownership des équipements (sauf die cut/moules)\n• Copie par Jump Forming\n• Qualité inégale des produits\n• Gestion complexe des matières premières\n\nAxes du projet :\n• Diversifier les sites de production\n• Protéger les moules (IP, contrats)\n• Sécuriser la chaîne d'approvisionnement\n• Contrôle qualité renforcé\n• Évaluer opportunité \"Made in Canada vs Thailand\" stratégique",
+    obj_1_proj_4_impact: "eleve",
+    obj_1_proj_5_name: "Reprendre le leadership sur les marchés et les canaux",
+    obj_1_proj_5_results: "Enjeux clés :\n• Distribution non contrôlée (qui vend où ?)\n• Chevauchement des territoires (Dubai, Maldives, India, etc.)\n• Conflits d'intérêts (Raj vend Viro ailleurs)\n• Dépendance forte à Homebuilders (30–50% CA)\n• Risque de priorisation de produits concurrents\n• Leads non sécurisés\n\nAxes du projet :\n• Définir clairement les territoires de vente\n• Contrôler la nomination des distributeurs (Palmex doit décider)\n• Revoir relation avec Homebuilders (risque stratégique)\n• Protection des leads (pipeline Palmex)\n• Clarifier qui vend quoi (Palmex vs autres marques)",
+    obj_1_proj_5_impact: "critique",
+    // OBJ 2 — Leadership
+    obj_2_name: "LEADERSHIP — Clarification du rôle de président stratégique",
+    '_projCount_2': 3,
+    obj_2_proj_1_name: "La rencontre du Président",
+    obj_2_proj_1_results: "Une rencontre par mois dans laquelle je présente mes idées et avancements de projets.\nGouvernance, rôles, responsabilité, communication, présence, exposure, notoriété.",
+    obj_2_proj_1_impact: "eleve",
+    obj_2_proj_2_name: "La convention 2028",
+    obj_2_proj_2_results: "Organisation et comité pour planification de l'événement.\n25 ans de Palmex et 30 ans de RD.",
+    obj_2_proj_2_impact: "moyen",
+    obj_2_proj_3_name: "Gérer Palmmex Asia et Palmex Brasil",
+    obj_2_proj_3_results: "Optimiser les relations sans faire le quotidien.\nStructurer la gouvernance à distance.",
+    obj_2_proj_3_impact: "eleve",
+    // OBJ 3 — Renforcer le capital humain et financier
+    obj_3_name: "RENFORCER LE CAPITAL HUMAIN ET FINANCIER — Optimiser et accélérer la création de valeur via investissement, gouvernance et talent stratégique",
+    '_projCount_3': 4,
+    obj_3_proj_1_name: "Renforcement du leadership commercial (equity & talent)",
+    obj_3_proj_1_results: "Objectif : Aller chercher un levier de croissance via un VP Ventes stratégique.\n• Évaluer la pertinence de céder ~15% de l'entreprise\n• Définir le profil cible (complémentaire, international, structuré)\n• Modéliser le ROI attendu (croissance, structuration ventes, pipelines)\n• Processus de recrutement / approche ciblée\n\nRésultat attendu : Accélération des ventes + structuration scalable.",
+    obj_3_proj_1_impact: "critique",
+    obj_3_proj_2_name: "Optimisation de la structure financière personnelle et corporative",
+    obj_3_proj_2_results: "Objectif : Maximiser l'utilisation de l'équité et du levier financier.\n• Analyse des scénarios : Refinancement / levier personnel\n• Réinjection dans l'entreprise vs diversification\n• Stratégie d'effet de levier pour croissance (sans trop diluer)\n• Évaluation des risques et de la flexibilité\n\nRésultat attendu : Meilleure utilisation du capital pour créer plus de valeur.",
+    obj_3_proj_2_impact: "eleve",
+    obj_3_proj_3_name: "Accès à du financement de croissance (1M à 2M+)",
+    obj_3_proj_3_results: "Objectif : Accélérer le développement (marchés, marketing, équipe).\n• Explorer les sources : Dette (BNC, EDC, BDC), subventions/programmes export, investisseurs minoritaires\n• Définir un plan d'utilisation clair (go-to-market, production, branding)\n• Préparer dossier solide (vision, chiffres, narrative)\n\nRésultat attendu : Accélération structurée sans freiner la croissance.",
+    obj_3_proj_3_impact: "eleve",
+    obj_3_proj_4_name: "Mise en place d'un comité aviseur stratégique",
+    obj_3_proj_4_results: "Objectif : Améliorer la qualité des décisions et structurer la vision.\n• Composition : 4 membres externes complémentaires\n• 4 rencontres/an + 1 stratégique\n• Budget : ~8 000 $\n• Mise en place : Cadre légal (D&O), lettre/attestation (rémunération, confidentialité)\n• Préparation rigoureuse (données, KPI, enjeux stratégiques)\n\nRésultat attendu : Meilleures décisions + recul stratégique + accountability.",
+    obj_3_proj_4_impact: "eleve",
+    // OBJ 4 — Projets hors Palmex
+    obj_4_name: "MISE EN OEUVRE DE PROJETS HORS PALMEX",
+    '_projCount_4': 4,
+    obj_4_proj_1_name: "Next Palm Thatch",
+    obj_4_proj_1_results: "Low cost thatch avec une directrice commerciale en place.",
+    obj_4_proj_1_impact: "moyen",
+    obj_4_proj_2_name: "Production ABC",
+    obj_4_proj_2_results: "Être propriétaire à 50% d'une business d'opérations.\nPartenaire potentiel : Edu Ruiz.",
+    obj_4_proj_2_impact: "moyen",
+    obj_4_proj_3_name: "Thatch Group",
+    obj_4_proj_3_results: "Palmex, NextPalm, Viro, autres + resort villas + palmex entrepôt/surplus.",
+    obj_4_proj_3_impact: "eleve",
+    obj_4_proj_4_name: "Acquisition stratégique",
+    obj_4_proj_4_results: "Acquisition d'une compagnie afin d'ajouter un produit spécifique à notre gamme.\nExemple : Bardeau de cèdre en synthétique.",
+    obj_4_proj_4_impact: "eleve",
+    // OBJ 5 — Innovation, R&D
+    obj_5_name: "INNOVATION, R&D, NOUVEAUX PRODUITS",
+    '_projCount_5': 4,
+    obj_5_proj_1_name: "Nouveaux produits / design interne Palmex",
+    obj_5_proj_1_results: "R&D : bardeau de cèdre, feuille style Viro, etc.\nPotentiellement s'associer à une firme de design industriel qui pourrait nous accompagner de A à Z (moules, 3D, production, packaging, etc.).",
+    obj_5_proj_1_impact: "eleve",
+    obj_5_proj_2_name: "Roadmap produit 3-5 ans",
+    obj_5_proj_2_results: "Développement de produits structuré sur un horizon de 3 à 5 ans.",
+    obj_5_proj_2_impact: "eleve",
+    obj_5_proj_3_name: "Département R&D et cellule produit (Palmex Urban)",
+    obj_5_proj_3_results: "Mettre sur pieds un département R&D et une cellule produit dédiée.",
+    obj_5_proj_3_impact: "moyen",
+    obj_5_proj_4_name: "Recyclage de nos produits",
+    obj_5_proj_4_results: "2e vie après 20 ans, éliminer PVC, produits naturels, qualité.\nStratégie de durabilité et d'économie circulaire.",
+    obj_5_proj_4_impact: "moyen",
+  }
+};
 
 // Workflow state per participant: { submissions: [{version, date}], isFinal: bool, finalDate: '' }
 function getWorkflowKey() { return `palmex_workflow_${currentParticipant}`; }
@@ -1203,8 +1309,8 @@ function loadData() {
   if (!currentParticipant) return;
   try {
     const raw = localStorage.getItem(getStorageKey());
-    if (!raw) return;
-    const data = JSON.parse(raw);
+    const data = raw ? JSON.parse(raw) : (DEFAULT_DATA[currentParticipant] ? {...DEFAULT_DATA[currentParticipant]} : null);
+    if (!data) return;
     const matBody = document.getElementById('maturity-body');
     const targetRows = data._maturityCount || 5;
     for (let i = matBody.children.length; i < targetRows; i++) addMaturityRow();
@@ -1321,7 +1427,7 @@ function buildPPTX() {
   s1.addText([
     { text: participantName, options: { fontSize: 18, bold: true, color: C.primary, breakLine: true } },
     { text: deptName, options: { fontSize: 13, color: C.textMuted, breakLine: true } },
-    { text: '8 et 9 juin 2026', options: { fontSize: 13, color: C.textMuted } }
+    { text: '6 et 7 juillet 2026', options: { fontSize: 13, color: C.textMuted } }
   ], { x: 1.0, y: 4.1, w: 4.1, h: 1.0, fontFace: FONT, valign: 'middle' });
   // Bottom credit
   s1.addText('Préparé avec 1+1', { x: 6, y: 6.5, w: 3.5, h: 0.4, fontSize: 11, fontFace: FONT, color: C.textMuted, align: 'right' });
