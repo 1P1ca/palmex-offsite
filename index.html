@@ -872,7 +872,10 @@ function updateWorkflowUI() {
     btnFinal.style.display = '';
   } else {
     btnSubmit.style.display = '';
-    btnFinal.style.display = '';
+    btnSubmit.textContent = subCount === 0
+      ? '✉ Soumettre ma version'
+      : `✉ Soumettre version ${subCount + 1}/3`;
+    btnFinal.style.display = 'none';
   }
 }
 
@@ -973,7 +976,10 @@ function confirmFinal() {
 // ============================================================
 // EMAIL BODY BUILDER
 // ============================================================
-function buildEmailBody(opt, version, data) {
+function buildEmailBody(optArg, versionArg, dataArg) {
+  const opt = optArg || getCurrentOption();
+  const version = versionArg || '';
+  const data = dataArg || collectData();
   let lines = [];
   lines.push(`Cahier de préparation — Offsite stratégique Palmex`);
   lines.push(`${opt.dataset.name} — ${opt.dataset.dept}`);
