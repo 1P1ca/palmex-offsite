@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palmex | Cahier de préparation — Offsite stratégique 2026</title>
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/PptxGenJS@3.12.0/dist/pptxgen.bundle.js"></script>
+<style>
+:root {
+  --primary: #1a3a2a;
+  --primary-light: #2d5e42;
+  --accent: #c8a951;
+  --accent-light: #e8d48a;
+  --bg: #f7f6f2;
+  --card: #ffffff;
+  --text: #1e1e1e;
+  --text-muted: #6b7280;
+  --border: #e2e0da;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --radius: 8px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', -apple-system, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding-bottom: 55px;
+}
+
+/* HEADER */
+.site-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.site-header::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.site-header h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; position: relative; z-index: 1; }
+.site-header .subtitle { font-size: 1rem; opacity: 0.85; margin-top: 0.5rem; position: relative; z-index: 1; }
+.site-header .badge {
+  display: inline-block; background: var(--accent); color: var(--primary);
+  font-weight: 700; font-size: 0.75rem; padding: 0.25rem 0.75rem;
+  border-radius: 20px; margin-top: 0.75rem; letter-spacing: 1px;
+  text-transform: uppercase; position: relative; z-index: 1;
+}
+
+.container { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+/* PARTICIPANT SELECT */
+.participant-selector {
+  background: var(--card); border: 2px solid var(--accent); border-radius: var(--radius);
+  padding: 1.5rem 2rem; margin-bottom: 2rem; box-shadow: var(--shadow-md);
+}
+.participant-selector label {
+  display: block; font-weight: 700; font-size: 0.85rem;
+  text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); margin-bottom: 0.5rem;
+}
+.participant-selector select {
+  width: 100%; padding: 0.75rem 1rem; font-size: 1rem;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--bg); color: var(--text); cursor: pointer;
+}
+
+/* WORKFLOW TRACKER */
+.workflow-tracker {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 1.5rem 2rem; margin-bottom: 2rem; box-shadow: var(--shadow);
+}
+.workflow-tracker h3 {
+  font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--primary); margin-bottom: 1rem; font-weight: 700;
+}
+.workflow-steps {
+  display: flex; justify-content: space-between; position: relative;
+  padding: 0 1rem;
+}
+.workflow-steps::before {
+  content: ''; position: absolute; top: 18px; left: 60px; right: 60px;
+  height: 3px; background: var(--border); z-index: 0;
+}
+.workflow-step {
+  display: flex; flex-direction: column; align-items: center;
+  position: relative; z-index: 1; flex: 1;
+}
+.step-circle {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--bg); border: 3px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 0.85rem; color: var(--text-muted);
+  transition: all 0.3s;
+}
+.step-circle.active { border-color: var(--accent); background: var(--accent); color: var(--primary); }
+.step-circle.done { border-color: var(--success); background: var(--success); color: white; }
+.step-label {
+  margin-top: 0.5rem; font-size: 0.75rem; font-weight: 600;
+  color: var(--text-muted); text-align: center; max-width: 100px;
+}
+.step-label.active { color: var(--primary); }
+.step-label.done { color: var(--success); }
+.step-date {
+  font-size: 0.7rem; color: var(--text-muted); margin-top: 0.15rem;
+  font-style: italic;
+}
+
+.workflow-status {
+  margin-top: 1.25rem; padding: 0.85rem 1.25rem; border-radius: var(--radius);
+  font-size: 0.9rem; display: flex; align-items: center; gap: 0.75rem;
+}
+.workflow-status.draft { background: #fef9e7; border-left: 4px solid var(--accent); }
+.workflow-status.submitted { background: #e8f5e9; border-left: 4px solid var(--success); }
+.workflow-status.final { background: #e3f2fd; border-left: 4px solid #1976d2; }
+.workflow-status .status-icon { font-size: 1.3rem; }
+
+/* SECTIONS */
+.section {
+  background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+  margin-bottom: 1.5rem; overflow: hidden; border: 1px solid var(--border);
+}
+.section-header {
+  background: var(--primary); color: white; padding: 1rem 1.5rem;
+  display: flex; align-items: center; gap: 0.75rem; cursor: pointer; user-select: none;
+}
+.section-header:hover { background: var(--primary-light); }
+.section-header .num {
+  background: var(--accent); color: var(--primary); font-weight: 800;
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; flex-shrink: 0;
+}
+.section-header h2 { font-size: 1rem; font-weight: 600; flex: 1; }
+.section-header .chevron { transition: transform 0.2s; font-size: 1.2rem; }
+.section-header.collapsed .chevron { transform: rotate(-90deg); }
+.section-body { padding: 1.5rem; }
+.section-body.hidden { display: none; }
+
+/* CONTEXT BOX */
+.context-box {
+  background: #f0f7f3; border-left: 4px solid var(--primary-light);
+  padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+  border-radius: 0 var(--radius) var(--radius) 0; font-size: 0.9rem; color: var(--primary);
+}
+.context-box h3 {
+  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 0.5rem; color: var(--primary-light);
+}
+.context-box ul { margin-left: 1.25rem; margin-top: 0.5rem; }
+.context-box li { margin-bottom: 0.25rem; }
+
+/* FORM ELEMENTS */
+label.field-label {
+  display: block; font-weight: 600; font-size: 0.85rem;
+  color: var(--text); margin-bottom: 0.35rem; margin-top: 1rem;
+}
+label.field-label:first-child { margin-top: 0; }
+textarea, input[type="text"], input[type="number"] {
+  width: 100%; padding: 0.65rem 0.85rem; font-size: 0.95rem;
+  font-family: inherit; border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--bg); transition: border-color 0.15s, box-shadow 0.15s;
+}
+textarea:focus, input:focus, select:focus {
+  outline: none; border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(200,169,81,0.15);
+}
+textarea { resize: vertical; min-height: 80px; }
+
+/* MATURITY TABLE */
+.maturity-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+.maturity-table th, .maturity-table td {
+  padding: 0.6rem 0.85rem; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.9rem;
+}
+.maturity-table th {
+  background: var(--bg); font-weight: 600; font-size: 0.8rem;
+  text-transform: uppercase; letter-spacing: 0.3px; color: var(--text-muted);
+}
+.maturity-table input[type="text"] {
+  border: none; background: transparent; padding: 0.3rem 0; font-size: 0.9rem;
+}
+.maturity-table input[type="text"]:focus {
+  background: var(--bg); border-radius: 4px; padding: 0.3rem 0.5rem;
+}
+.maturity-slider { display: flex; align-items: center; gap: 0.5rem; }
+.maturity-slider input[type="range"] { flex: 1; accent-color: var(--primary); }
+.maturity-val { font-weight: 700; font-size: 1rem; color: var(--primary); min-width: 24px; text-align: center; }
+.add-row-btn {
+  margin-top: 0.75rem; padding: 0.5rem 1rem; font-size: 0.85rem;
+  background: transparent; border: 1px dashed var(--border); border-radius: var(--radius);
+  cursor: pointer; color: var(--text-muted); transition: all 0.15s;
+}
+.add-row-btn:hover { border-color: var(--primary); color: var(--primary); background: #f0f7f3; }
+
+/* OBJECTIVES */
+.objective-card {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  margin-bottom: 1.25rem; overflow: hidden;
+}
+.objective-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white; padding: 0.75rem 1.25rem;
+  display: flex; align-items: center; gap: 0.75rem; cursor: pointer;
+}
+.objective-header .obj-num {
+  background: var(--accent); color: var(--primary); font-weight: 800;
+  font-size: 0.75rem; padding: 0.15rem 0.6rem; border-radius: 12px;
+}
+.objective-header input {
+  flex: 1; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 4px; padding: 0.4rem 0.65rem; color: white; font-size: 0.95rem; font-family: inherit;
+}
+.objective-header input::placeholder { color: rgba(255,255,255,0.6); }
+.objective-header input:focus {
+  background: rgba(255,255,255,0.25); border-color: var(--accent); outline: none; box-shadow: none;
+}
+.objective-body { padding: 1rem 1.25rem; }
+
+/* PROJECTS */
+.project-card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 1rem 1.25rem; margin-bottom: 0.75rem; position: relative;
+}
+.project-card h4 {
+  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--accent); margin-bottom: 0.75rem; font-weight: 700;
+}
+.project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.project-grid .full { grid-column: 1 / -1; }
+.project-grid label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 0.2rem; }
+.project-grid input, .project-grid textarea, .project-grid select {
+  width: 100%; padding: 0.5rem 0.65rem; font-size: 0.85rem;
+  font-family: inherit; border: 1px solid var(--border); border-radius: 4px; background: white;
+}
+.project-grid textarea { min-height: 50px; }
+.quarter-checks { display: flex; gap: 1rem; padding-top: 0.3rem; }
+.quarter-checks label { display: flex; align-items: center; gap: 0.3rem; font-weight: 600; font-size: 0.85rem; color: var(--text); cursor: pointer; }
+.quarter-checks input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer; }
+.remove-btn {
+  position: absolute; top: 0.5rem; right: 0.75rem; background: none;
+  border: none; color: var(--text-muted); cursor: pointer; font-size: 1.1rem;
+  padding: 0.2rem; border-radius: 4px;
+}
+.remove-btn:hover { color: var(--danger); background: #fef2f2; }
+.effort-select {
+  width: 100%; padding: 0.5rem 0.65rem; font-size: 0.85rem;
+  border: 1px solid var(--border); border-radius: 4px; background: white;
+}
+
+/* FOOTER ACTIONS */
+.footer-actions {
+  display: flex; gap: 0.75rem; justify-content: center;
+  margin-top: 2rem; flex-wrap: wrap;
+}
+.btn {
+  padding: 0.85rem 1.75rem; font-size: 0.95rem; font-weight: 600;
+  border: none; border-radius: var(--radius); cursor: pointer;
+  transition: all 0.15s; font-family: inherit; display: inline-flex;
+  align-items: center; gap: 0.5rem;
+}
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-light); box-shadow: var(--shadow-md); }
+.btn-secondary { background: white; color: var(--primary); border: 2px solid var(--primary); }
+.btn-secondary:hover { background: #f0f7f3; }
+.btn-accent { background: var(--accent); color: var(--primary); }
+.btn-accent:hover { background: var(--accent-light); }
+.btn-success { background: var(--success); color: white; }
+.btn-success:hover { background: #15803d; }
+.btn-blue { background: #1976d2; color: white; }
+.btn-blue:hover { background: #1565c0; }
+.btn-danger { background: var(--danger); color: white; }
+.btn-danger:hover { background: #b91c1c; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-sm { padding: 0.5rem 1rem; font-size: 0.85rem; }
+
+/* STATUS BAR */
+.status-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--primary); color: white; padding: 0.6rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.85rem; z-index: 100; box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+}
+.status-bar .progress-text { opacity: 0.85; }
+.save-indicator { display: flex; align-items: center; gap: 0.5rem; }
+.save-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); }
+.save-dot.unsaved { background: var(--accent); }
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 60px; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--primary); color: white; padding: 0.75rem 1.5rem;
+  border-radius: var(--radius); box-shadow: var(--shadow-md);
+  opacity: 0; transition: all 0.3s; z-index: 200; font-size: 0.9rem;
+  max-width: 90vw; text-align: center;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* MODAL */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5); z-index: 300;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem; opacity: 0; visibility: hidden; transition: all 0.3s;
+}
+.modal-overlay.show { opacity: 1; visibility: visible; }
+.modal {
+  background: var(--card); border-radius: 12px; padding: 2rem;
+  max-width: 520px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  transform: translateY(20px); transition: transform 0.3s;
+}
+.modal-overlay.show .modal { transform: translateY(0); }
+.modal h3 { font-size: 1.15rem; color: var(--primary); margin-bottom: 0.5rem; }
+.modal p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.5; }
+.modal .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
+.modal .advisor-info {
+  background: var(--bg); border-radius: var(--radius); padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+.modal .advisor-info strong { color: var(--primary); }
+.modal .booking-link {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--primary); color: white; text-decoration: none;
+  padding: 0.65rem 1.25rem; border-radius: var(--radius);
+  font-size: 0.9rem; font-weight: 600; transition: background 0.15s;
+}
+.modal .booking-link:hover { background: var(--primary-light); }
+
+/* LOCKED STATE */
+.locked-overlay {
+  display: none; position: relative;
+}
+.locked-overlay.show {
+  display: block; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255,255,255,0.7); z-index: 10; border-radius: var(--radius);
+}
+
+/* GUIDE INFOGRAPHIC */
+.guide-infographic {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 2rem; margin-bottom: 2rem; box-shadow: var(--shadow-md);
+}
+.guide-title {
+  font-size: 1.3rem; font-weight: 800; color: var(--primary); text-transform: uppercase;
+  letter-spacing: 0.5px; margin-bottom: 0.25rem; text-align: center;
+}
+.guide-intro {
+  text-align: center; color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;
+}
+.guide-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+}
+@media (max-width: 768px) { .guide-grid { grid-template-columns: 1fr; } }
+.guide-phase {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 1.25rem; position: relative;
+}
+.phase-badge {
+  display: inline-block; background: var(--primary); color: var(--accent);
+  font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+  padding: 0.2rem 0.6rem; border-radius: 12px; margin-bottom: 0.5rem;
+}
+.guide-phase h3 {
+  font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.75rem;
+}
+.phase-items { display: flex; flex-direction: column; gap: 0.6rem; }
+.phase-item {
+  background: var(--card); border-left: 3px solid var(--accent); padding: 0.6rem 0.8rem;
+  border-radius: 0 var(--radius) var(--radius) 0; font-size: 0.82rem; line-height: 1.45;
+}
+.phase-item strong { color: var(--primary); font-size: 0.85rem; display: block; margin-bottom: 0.15rem; }
+.phase-item p { color: var(--text-muted); margin: 0; }
+.phase-item.rule-box {
+  border-left-color: var(--danger); background: #fef2f2;
+}
+.phase-item.rule-box strong { color: var(--danger); }
+
+/* PRINT */
+@media print {
+  .status-bar, .footer-actions, .participant-selector, .add-row-btn, .remove-btn,
+  .workflow-tracker, .modal-overlay { display: none !important; }
+  .section-body.hidden { display: block !important; }
+  body { background: white; }
+  .section { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+}
+@media (max-width: 640px) {
+  .project-grid { grid-template-columns: 1fr; }
+  .site-header h1 { font-size: 1.5rem; }
+  .container { padding: 1rem; }
+  .footer-actions { flex-direction: column; }
+  .btn { width: 100%; text-align: center; justify-content: center; }
+  .workflow-steps { flex-wrap: wrap; gap: 0.5rem; }
+  .workflow-steps::before { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>Cahier de préparation — Offsite stratégique</h1>
+  <p class="subtitle">Palmex International Inc. | Build to Scale 2026–2029</p>
+  <span class="badge">Lac-à-l'épaule — 8 et 9 juin 2026</span>
+</header>
+
+<div class="container">
+
+  <!-- PARTICIPANT SELECTOR -->
+  <div class="participant-selector">
+    <label for="participant">Identifiez-vous pour commencer</label>
+    <select id="participant" onchange="onParticipantChange()">
+      <option value="">— Sélectionnez votre nom —</option>
+      <option value="president" data-name="Kevin Maillé" data-dept="Haute direction" data-advisor="philippe" data-email="philippe@1p1.ca" data-participant-email="kevin@palmex-international.com" data-booking="https://outlook.office.com/bookwithme/user/c5b912530ec04d919302d844131bb561@1p1.ca/meetingtype/nciXqWYtY0-P7a6pEtliXQ2?anonymous&ep=mLinkFromTile">Kevin Maillé — Président</option>
+      <option value="dg" data-name="Samuel Bernier" data-dept="Direction générale" data-advisor="marc" data-email="marc@1p1.ca" data-participant-email="samuel@palmex-international.com" data-booking="https://outlook.office.com/bookwithme/user/68d6f89e8b8e477cbaa9d9312b984135@1p1.ca/meetingtype/aMhf9FxMlUiUE3KGEH5ZqQ2?anonymous&ismsaljsauthenabled&ep=mlink">Samuel Bernier — Directeur général</option>
+      <option value="rh" data-name="Ressources humaines" data-dept="Ressources humaines" data-advisor="marc" data-email="marc@1p1.ca" data-participant-email="samuel@palmex-international.com" data-booking="https://outlook.office.com/bookwithme/user/68d6f89e8b8e477cbaa9d9312b984135@1p1.ca/meetingtype/aMhf9FxMlUiUE3KGEH5ZqQ2?anonymous&ismsaljsauthenabled&ep=mlink">Ressources humaines (RH)</option>
+      <option value="ti" data-name="Technologies de l'information" data-dept="Technologies de l'information" data-advisor="marc" data-email="marc@1p1.ca" data-participant-email="samuel@palmex-international.com" data-booking="https://outlook.office.com/bookwithme/user/68d6f89e8b8e477cbaa9d9312b984135@1p1.ca/meetingtype/aMhf9FxMlUiUE3KGEH5ZqQ2?anonymous&ismsaljsauthenabled&ep=mlink">Technologies de l'information (TI)</option>
+      <option value="ventes" data-name="Michael Ciampini" data-dept="Exportation (3 territoires)" data-advisor="marc" data-email="marc@1p1.ca" data-participant-email="sales@palmex-international.com" data-booking="https://outlook.office.com/bookwithme/user/68d6f89e8b8e477cbaa9d9312b984135@1p1.ca/meetingtype/aMhf9FxMlUiUE3KGEH5ZqQ2?anonymous&ismsaljsauthenabled&ep=mlink">Michael Ciampini — Directeur des ventes</option>
+      <option value="marketing" data-name="Myriam Rousseau" data-dept="Marketing" data-advisor="philippe" data-email="philippe@1p1.ca" data-participant-email="myriam@palmex-international.com" data-booking="https://outlook.office.com/bookwithme/user/c5b912530ec04d919302d844131bb561@1p1.ca/meetingtype/nciXqWYtY0-P7a6pEtliXQ2?anonymous&ep=mLinkFromTile">Myriam Rousseau — Directrice Marketing</option>
+      <option value="marque" data-name="Catherine Lazure" data-dept="Marque et Communication" data-advisor="philippe" data-email="philippe@1p1.ca" data-participant-email="c.lazure@palmex-international.com" data-booking="https://outlook.office.com/bookwithme/user/c5b912530ec04d919302d844131bb561@1p1.ca/meetingtype/nciXqWYtY0-P7a6pEtliXQ2?anonymous&ep=mLinkFromTile">Catherine Lazure — Cheffe de marque et communication</option>
+      <option value="operations" data-name="Vincent Bigras" data-dept="Opérations/Usine et Logistique" data-advisor="marc" data-email="marc@1p1.ca" data-participant-email="vincent@palmex-international.com" data-booking="https://outlook.office.com/bookwithme/user/68d6f89e8b8e477cbaa9d9312b984135@1p1.ca/meetingtype/aMhf9FxMlUiUE3KGEH5ZqQ2?anonymous&ismsaljsauthenabled&ep=mlink">Vincent Bigras — Directeur des opérations</option>
+      <option value="controleur" data-name="Camille Robinette" data-dept="Finances/Comptabilité" data-advisor="philippe" data-email="philippe@1p1.ca" data-participant-email="c.robinette@palmex-international.com" data-booking="https://outlook.office.com/bookwithme/user/c5b912530ec04d919302d844131bb561@1p1.ca/meetingtype/nciXqWYtY0-P7a6pEtliXQ2?anonymous&ep=mLinkFromTile">Camille Robinette — Contrôleure financière</option>
+    </select>
+  </div>
+
+  <!-- INFOGRAPHIE GUIDE — visible avant sélection -->
+  <div id="guideInfoGraphic" class="guide-infographic">
+    <h2 class="guide-title">Trajectoire stratégique : préparation au Lac-à-l'épaule</h2>
+    <p class="guide-intro">Ce cahier vous guidera à travers 4 phases de réflexion. Sélectionnez votre nom ci-dessus pour commencer.</p>
+    <div class="guide-grid">
+
+      <div class="guide-phase">
+        <div class="phase-badge">Phase 1</div>
+        <h3>Analyse et mindset stratégique</h3>
+        <div class="phase-items">
+          <div class="phase-item">
+            <strong>La Vision 3 ans</strong>
+            <p>S'appuyer sur le rapport stratégique et le PowerPoint de vision pour s'assurer que les objectifs départementaux sont alignés sur la direction globale de Palmex.</p>
+          </div>
+          <div class="phase-item">
+            <strong>Identification des 5 enjeux majeurs</strong>
+            <p>Identifier cinq défis critiques pour l'entreprise (contexte, environnement, croissance) sans se limiter à son propre département.</p>
+          </div>
+          <div class="phase-item">
+            <strong>Cartographie des fonctions de base</strong>
+            <p>Documenter les fonctions clés (ex : dotation en RH, gestion des commandes) en utilisant des outils numériques pour l'analyse des capacités.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-phase">
+        <div class="phase-badge">Phase 2</div>
+        <h3>Évaluation de la maturité</h3>
+        <div class="phase-items">
+          <div class="phase-item">
+            <strong>Maturité actuelle vs future</strong>
+            <p>Noter sur une échelle (1 à 10) la sophistication actuelle des processus par rapport aux besoins requis dans trois ans.</p>
+          </div>
+          <div class="phase-item">
+            <strong>Diagnostic des dysfonctionnalités</strong>
+            <p>Identifier les enjeux départementaux actuels (symptômes) et remonter à la cause réelle (ex : allocation de capital, manque de processus, enjeux de leadership).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-phase">
+        <div class="phase-badge">Phase 3</div>
+        <h3>Plan d'action et projets</h3>
+        <div class="phase-items">
+          <div class="phase-item rule-box">
+            <strong>Règle 5 × 5</strong>
+            <p>Maximum de 5 objectifs annuels, avec un plafond de 5 projets spécifiques par objectif.</p>
+          </div>
+          <div class="phase-item">
+            <strong>Fiche projet complète</strong>
+            <p>Résultats attendus · Collaborateurs impliqués · Budget estimé · Effort requis · Risques potentiels</p>
+          </div>
+          <div class="phase-item">
+            <strong>Séquençage et impact</strong>
+            <p>Déterminer le calendrier d'exécution (Q1→Q4) pour comprendre les besoins financiers et les interdépendances entre les départements.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-phase">
+        <div class="phase-badge">Phase 4</div>
+        <h3>Collaboration et jalons</h3>
+        <div class="phase-items">
+          <div class="phase-item">
+            <strong>Collaboration inter-départementale</strong>
+            <p>Les ventes doivent valider la capacité de livraison avec la production, tandis que les finances fournissent les critères de CAPEX et l'allocation budgétaire.</p>
+          </div>
+          <div class="phase-item">
+            <strong>Cycle de révision pré-offsite</strong>
+            <p>Prévoir un maximum de 3 rencontres individuelles avec les consultants après la soumission du formulaire initial pour challenger les idées.</p>
+          </div>
+          <div class="phase-item">
+            <strong>Échéance finale : le Lac-à-l'épaule</strong>
+            <p>Présentation de la version finale en PowerPoint devant l'équipe pour obtenir un plan d'action séquencé et des engagements fermes. <strong>8 et 9 juin 2026.</strong></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WORKFLOW TRACKER (hidden until participant selected) -->
+  <div id="workflowTracker" style="display:none;">
+    <div class="workflow-tracker">
+      <h3>Processus de préparation</h3>
+      <div class="workflow-steps">
+        <div class="workflow-step">
+          <div class="step-circle" id="step1-circle">1</div>
+          <span class="step-label" id="step1-label">Brouillon initial</span>
+          <span class="step-date" id="step1-date"></span>
+        </div>
+        <div class="workflow-step">
+          <div class="step-circle" id="step2-circle">2</div>
+          <span class="step-label" id="step2-label">Rencontre 1</span>
+          <span class="step-date" id="step2-date"></span>
+        </div>
+        <div class="workflow-step">
+          <div class="step-circle" id="step3-circle">3</div>
+          <span class="step-label" id="step3-label">Rencontre 2</span>
+          <span class="step-date" id="step3-date"></span>
+        </div>
+        <div class="workflow-step">
+          <div class="step-circle" id="step4-circle">4</div>
+          <span class="step-label" id="step4-label">Rencontre 3</span>
+          <span class="step-date" id="step4-date"></span>
+        </div>
+        <div class="workflow-step">
+          <div class="step-circle" id="step5-circle">&#10003;</div>
+          <span class="step-label" id="step5-label">Version finale</span>
+          <span class="step-date" id="step5-date"></span>
+        </div>
+      </div>
+      <div class="workflow-status draft" id="workflowStatus">
+        <span class="status-icon">&#9998;</span>
+        <span id="workflowStatusText">Vous êtes en mode brouillon. Complétez votre cahier puis soumettez-le pour planifier votre première rencontre.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN FORM -->
+  <div id="mainForm" style="display:none;">
+
+    <!-- SECTION 0: VISION RAPPEL -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="num">i</span>
+        <h2>Rappel — Vision 3 ans & Objectifs corporatifs</h2>
+        <span class="chevron">&#9660;</span>
+      </div>
+      <div class="section-body">
+        <div class="context-box">
+          <h3>Philosophie — Build to Scale</h3>
+          <p>Bâtir une entreprise capable d'augmenter son volume, ses revenus et sa portée <strong>sans que la structure de coûts croisse au même rythme</strong>.</p>
+        </div>
+        <div class="context-box">
+          <h3>Axes stratégiques</h3>
+          <ul>
+            <li><strong>Croissance :</strong> Doubler les ventes avec les produits actuels. Repeatable Revenue Engine. Expansion territoriale disciplinée.</li>
+            <li><strong>Marque Premium :</strong> Positionnement haut de gamme non-négociable. Emphase expérience client. Différenciation vs. concurrence Chine.</li>
+            <li><strong>Valorisation :</strong> Réseau de distribution = actif stratégique #1. Structure indépendante des actionnaires. Prévisibilité des revenus.</li>
+          </ul>
+        </div>
+        <div class="context-box">
+          <h3>Objectifs corporatifs — An 1 (2027)</h3>
+          <ul>
+            <li><strong>Ventes & Revenus :</strong> 13,3M$ avec les lignes actuelles | Processus de vente documenté et répétable | Discipline de prix</li>
+            <li><strong>Réseau :</strong> De 75 à 100+ distributeurs actifs | Territoires prioritaires assignés | Plan de vente structuré</li>
+            <li><strong>Systèmes :</strong> ERP 100% adopté | CRM connecté et utilisé | Tableaux de bord KPIs en place</li>
+            <li><strong>Organisation :</strong> Organigramme et cibles définis | Performance monitorée | Rituels hebdo, mensuel, trimestriel</li>
+          </ul>
+        </div>
+        <div class="context-box">
+          <h3>Cibles financières</h3>
+          <ul>
+            <li><strong>An 1 (2027) :</strong> 13,3M$ CA | 15% marge nette minimum</li>
+            <li><strong>An 3 (2029) :</strong> 20M$ CA</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 1: ENJEUX D'ENTREPRISE -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="num">1</span>
+        <h2>Enjeux d'entreprise — Prochains 12 mois</h2>
+        <span class="chevron">&#9660;</span>
+      </div>
+      <div class="section-body">
+        <div class="context-box">
+          <h3>Consigne</h3>
+          <p>Selon vous, quels sont les 3 à 5 principaux enjeux auxquels Palmex fait face au cours des 12 prochains mois ? Pensez de manière transversale, au-delà de votre département.</p>
+        </div>
+        <div id="enjeux-entreprise">
+          <div class="enjeu-row" style="margin-bottom:1rem;"><label class="field-label">Enjeu 1</label><textarea data-field="enjeu_entreprise_1" placeholder="Décrivez l'enjeu et son impact potentiel sur l'entreprise..." rows="3"></textarea></div>
+          <div class="enjeu-row" style="margin-bottom:1rem;"><label class="field-label">Enjeu 2</label><textarea data-field="enjeu_entreprise_2" placeholder="Décrivez l'enjeu et son impact potentiel sur l'entreprise..." rows="3"></textarea></div>
+          <div class="enjeu-row" style="margin-bottom:1rem;"><label class="field-label">Enjeu 3</label><textarea data-field="enjeu_entreprise_3" placeholder="Décrivez l'enjeu et son impact potentiel sur l'entreprise..." rows="3"></textarea></div>
+          <div class="enjeu-row" style="margin-bottom:1rem;"><label class="field-label">Enjeu 4</label><textarea data-field="enjeu_entreprise_4" placeholder="(Optionnel)" rows="3"></textarea></div>
+          <div class="enjeu-row" style="margin-bottom:1rem;"><label class="field-label">Enjeu 5</label><textarea data-field="enjeu_entreprise_5" placeholder="(Optionnel)" rows="3"></textarea></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: FONCTIONS + MATURITÉ -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="num">2</span>
+        <h2>Fonctions de votre département & niveau de maturité</h2>
+        <span class="chevron">&#9660;</span>
+      </div>
+      <div class="section-body">
+        <div class="context-box">
+          <h3>Consigne</h3>
+          <p>Listez les principales fonctions/responsabilités de votre département et évaluez leur niveau de maturité actuel de 1 (embryonnaire) à 10 (excellence opérationnelle).</p>
+        </div>
+        <table class="maturity-table">
+          <thead><tr><th style="width:35%">Fonction / Responsabilité</th><th style="width:25%">Maturité actuelle (1-10)</th><th style="width:25%">Cible dans 1 an (1-10)</th><th style="width:15%"></th></tr></thead>
+          <tbody id="maturity-body"></tbody>
+        </table>
+        <button class="add-row-btn" onclick="addMaturityRow()">+ Ajouter une fonction</button>
+      </div>
+    </div>
+
+    <!-- SECTION 3: ENJEUX DÉPARTEMENT -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="num">3</span>
+        <h2>Principaux enjeux de votre département</h2>
+        <span class="chevron">&#9660;</span>
+      </div>
+      <div class="section-body">
+        <div class="context-box">
+          <h3>Consigne</h3>
+          <p>Compte tenu des objectifs corporatifs 2026–2027, quels sont les principaux enjeux spécifiques à votre département pour les atteindre ? Identifiez les obstacles, les gaps et les transformations nécessaires.</p>
+        </div>
+        <div id="enjeux-dept">
+          <div class="enjeu-row" style="margin-bottom:1rem;"><label class="field-label">Enjeu départemental 1</label><textarea data-field="enjeu_dept_1" placeholder="Quel est l'enjeu et comment il freine l'atteinte des objectifs corporatifs ?" rows="3"></textarea></div>
+          <div class="enjeu-row" style="margin-bottom:1rem;"><label class="field-label">Enjeu départemental 2</label><textarea data-field="enjeu_dept_2" placeholder="Quel est l'enjeu et comment il freine l'atteinte des objectifs corporatifs ?" rows="3"></textarea></div>
+          <div class="enjeu-row" style="margin-bottom:1rem;"><label class="field-label">Enjeu départemental 3</label><textarea data-field="enjeu_dept_3" placeholder="Quel est l'enjeu et comment il freine l'atteinte des objectifs corporatifs ?" rows="3"></textarea></div>
+          <div class="enjeu-row" style="margin-bottom:1rem;"><label class="field-label">Enjeu départemental 4</label><textarea data-field="enjeu_dept_4" placeholder="(Optionnel)" rows="3"></textarea></div>
+          <div class="enjeu-row" style="margin-bottom:1rem;"><label class="field-label">Enjeu départemental 5</label><textarea data-field="enjeu_dept_5" placeholder="(Optionnel)" rows="3"></textarea></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: OBJECTIFS & PROJETS -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="num">4</span>
+        <h2>Objectifs & Projets — Plan d'action An 1</h2>
+        <span class="chevron">&#9660;</span>
+      </div>
+      <div class="section-body">
+        <div class="context-box">
+          <h3>Consigne</h3>
+          <p>Définissez jusqu'à 5 objectifs pour votre département. Pour chaque objectif, identifiez jusqu'à 5 projets concrets avec les détails de réalisation.</p>
+        </div>
+        <div id="objectives-container"></div>
+        <button class="add-row-btn" id="add-obj-btn" onclick="addObjective()" style="margin-top:1rem;">+ Ajouter un objectif</button>
+      </div>
+    </div>
+
+  </div><!-- /mainForm -->
+
+  <!-- FOOTER ACTIONS -->
+  <div id="footerActions" class="footer-actions" style="display:none;">
+    <button class="btn btn-secondary" onclick="saveData()">&#128190; Sauvegarder</button>
+    <button class="btn btn-accent" onclick="submitVersion()" id="btnSubmit">&#9993; Soumettre ma version</button>
+    <button class="btn btn-blue" onclick="markFinal()" id="btnFinal" style="display:none;">&#10003; Marquer comme version finale</button>
+    <button class="btn btn-secondary btn-sm" onclick="exportPDF()">&#128424; Imprimer</button>
+    <button class="btn btn-secondary btn-sm" onclick="exportPPTX()">&#128229; Exporter PowerPoint</button>
+  </div>
+
+</div>
+
+<!-- STATUS BAR -->
+<div class="status-bar" id="statusBar" style="display:none;">
+  <span class="progress-text" id="progressText">Progression : 0%</span>
+  <div class="save-indicator">
+    <span class="save-dot" id="saveDot"></span>
+    <span id="saveStatus">Sauvegardé</span>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- SUBMIT MODAL -->
+<div class="modal-overlay" id="submitModal">
+  <div class="modal">
+    <h3 id="modalTitle">Soumettre votre cahier</h3>
+    <p id="modalDescription">Votre cahier sera transmis à votre conseiller 1+1 pour révision. Vous pourrez continuer à le modifier après la soumission.</p>
+    <div class="advisor-info" id="advisorInfo">
+      <p><strong>Votre conseiller :</strong> <span id="advisorName"></span></p>
+      <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.35rem;">Une copie de votre cahier lui sera envoyée par courriel.</p>
+    </div>
+    <div id="bookingSection" style="display:none; margin-top:1rem;">
+      <p style="font-size:0.9rem; margin-bottom:0.75rem;"><strong>Planifiez votre prochaine rencontre :</strong></p>
+      <a class="booking-link" id="bookingLink" href="#" target="_blank" rel="noopener">&#128197; Réserver un créneau</a>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('submitModal')">Annuler</button>
+      <button class="btn btn-primary btn-sm" onclick="confirmSubmit()" id="modalConfirmBtn">Confirmer et envoyer</button>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL MODAL -->
+<div class="modal-overlay" id="finalModal">
+  <div class="modal">
+    <h3>Marquer comme version finale</h3>
+    <p>En confirmant, votre cahier sera verrouillé et transmis comme version définitive à votre conseiller. Cette action est irréversible.</p>
+    <div class="advisor-info">
+      <p><strong>Conseiller :</strong> <span id="finalAdvisorName"></span></p>
+      <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.35rem;">La version finale sera envoyée et le document sera verrouillé.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('finalModal')">Annuler</button>
+      <button class="btn btn-blue btn-sm" onclick="confirmFinal()">&#10003; Confirmer la version finale</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// PARTICIPANT & ADVISOR CONFIG
+// ============================================================
+// Google Apps Script endpoint for PPTX email sending
+const SEND_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwDN-eg2PI2S-4QaV7UUpqO4EzgI4fmL3ukM5MXx8B5WQxzRDv040RwHsFmc9o3rhFx/exec';
+
+const ADVISOR_CONFIG = {
+  president:  { advisor: 'Philippe', email: 'philippe@1p1.ca' },
+  dg:         { advisor: 'Marc',     email: 'marc@1p1.ca' },
+  rh:         { advisor: 'Marc',     email: 'marc@1p1.ca' },
+  ti:         { advisor: 'Marc',     email: 'marc@1p1.ca' },
+  ventes:     { advisor: 'Marc',     email: 'marc@1p1.ca' },
+  marketing:  { advisor: 'Philippe', email: 'philippe@1p1.ca' },
+  marque:     { advisor: 'Philippe', email: 'philippe@1p1.ca' },
+  operations: { advisor: 'Marc',     email: 'marc@1p1.ca' },
+  controleur: { advisor: 'Philippe', email: 'philippe@1p1.ca' },
+};
+
+// ============================================================
+// STATE
+// ============================================================
+let currentParticipant = '';
+let objectiveCount = 0;
+const MAX_OBJECTIVES = 5;
+const MAX_PROJECTS = 5;
+let saveTimeout = null;
+
+// Workflow state per participant: { submissions: [{version, date}], isFinal: bool, finalDate: '' }
+function getWorkflowKey() { return `palmex_workflow_${currentParticipant}`; }
+function getWorkflow() {
+  try {
+    const raw = localStorage.getItem(getWorkflowKey());
+    return raw ? JSON.parse(raw) : { submissions: [], isFinal: false, finalDate: '' };
+  } catch(e) { return { submissions: [], isFinal: false, finalDate: '' }; }
+}
+function saveWorkflow(wf) {
+  localStorage.setItem(getWorkflowKey(), JSON.stringify(wf));
+}
+
+// ============================================================
+// PARTICIPANT CHANGE
+// ============================================================
+function onParticipantChange() {
+  const sel = document.getElementById('participant');
+  const opt = sel.options[sel.selectedIndex];
+  if (!sel.value) {
+    document.getElementById('mainForm').style.display = 'none';
+    document.getElementById('footerActions').style.display = 'none';
+    document.getElementById('statusBar').style.display = 'none';
+    document.getElementById('workflowTracker').style.display = 'none';
+    document.getElementById('guideInfoGraphic').style.display = 'block';
+    return;
+  }
+  currentParticipant = sel.value;
+  document.getElementById('guideInfoGraphic').style.display = 'none';
+  document.getElementById('mainForm').style.display = 'block';
+  document.getElementById('footerActions').style.display = 'flex';
+  document.getElementById('statusBar').style.display = 'flex';
+  document.getElementById('workflowTracker').style.display = 'block';
+
+  // Reset form
+  objectiveCount = 0;
+  document.getElementById('objectives-container').innerHTML = '';
+  document.getElementById('maturity-body').innerHTML = '';
+  document.getElementById('add-obj-btn').style.display = '';
+
+  for (let i = 0; i < 5; i++) addMaturityRow();
+  addObjective();
+  loadData();
+  updateWorkflowUI();
+  showToast('Bienvenue, ' + opt.dataset.name + ' — ' + opt.dataset.dept);
+  updateProgress();
+}
+
+// ============================================================
+// WORKFLOW UI
+// ============================================================
+function updateWorkflowUI() {
+  const wf = getWorkflow();
+  const subCount = wf.submissions.length; // 0, 1, 2, or 3
+  const isFinal = wf.isFinal;
+
+  // Step circles
+  // Step 1: brouillon (always done once participant starts)
+  setStep(1, 'done');
+  // Steps 2-4: rencontres
+  for (let i = 1; i <= 3; i++) {
+    if (subCount >= i) {
+      setStep(i + 1, 'done', wf.submissions[i - 1].date);
+    } else if (subCount === i - 1) {
+      setStep(i + 1, 'active');
+    } else {
+      setStep(i + 1, 'pending');
+    }
+  }
+  // Step 5: final
+  if (isFinal) {
+    setStep(5, 'done', wf.finalDate);
+  } else if (subCount >= 3) {
+    setStep(5, 'active');
+  } else {
+    setStep(5, 'pending');
+  }
+
+  // Status message
+  const statusEl = document.getElementById('workflowStatus');
+  const statusText = document.getElementById('workflowStatusText');
+  const statusIcon = statusEl.querySelector('.status-icon');
+
+  if (isFinal) {
+    statusEl.className = 'workflow-status final';
+    statusIcon.innerHTML = '&#10003;';
+    statusText.textContent = 'Version finale soumise. Votre cahier est verrouillé et prêt pour le lac-à-l\'épaule.';
+  } else if (subCount === 0) {
+    statusEl.className = 'workflow-status draft';
+    statusIcon.innerHTML = '&#9998;';
+    statusText.textContent = 'Mode brouillon. Complétez votre cahier puis soumettez-le pour planifier votre première rencontre avec votre conseiller.';
+  } else if (subCount < 3) {
+    statusEl.className = 'workflow-status submitted';
+    statusIcon.innerHTML = '&#128172;';
+    statusText.textContent = `Version ${subCount} soumise. Vous pouvez continuer à bonifier votre cahier et soumettre la prochaine version après votre rencontre.`;
+  } else {
+    statusEl.className = 'workflow-status submitted';
+    statusIcon.innerHTML = '&#128172;';
+    statusText.textContent = '3 rencontres complétées. Quand vous êtes prêt, marquez votre cahier comme version finale.';
+  }
+
+  // Button visibility
+  const btnSubmit = document.getElementById('btnSubmit');
+  const btnFinal = document.getElementById('btnFinal');
+
+  if (isFinal) {
+    btnSubmit.style.display = 'none';
+    btnFinal.style.display = 'none';
+    lockForm();
+  } else if (subCount >= 3) {
+    btnSubmit.style.display = 'none';
+    btnFinal.style.display = '';
+  } else {
+    btnSubmit.style.display = '';
+    btnFinal.style.display = '';
+  }
+}
+
+function setStep(stepNum, state, dateStr) {
+  const circle = document.getElementById(`step${stepNum}-circle`);
+  const label = document.getElementById(`step${stepNum}-label`);
+  const dateEl = document.getElementById(`step${stepNum}-date`);
+  circle.className = 'step-circle';
+  label.className = 'step-label';
+  if (state === 'done') {
+    circle.classList.add('done');
+    label.classList.add('done');
+  } else if (state === 'active') {
+    circle.classList.add('active');
+    label.classList.add('active');
+  }
+  if (dateStr) {
+    const d = new Date(dateStr);
+    dateEl.textContent = d.toLocaleDateString('fr-CA', { day: 'numeric', month: 'short' });
+  } else {
+    dateEl.textContent = '';
+  }
+}
+
+function lockForm() {
+  // Disable all inputs
+  document.querySelectorAll('#mainForm input, #mainForm textarea, #mainForm select').forEach(el => {
+    el.disabled = true;
+    el.style.opacity = '0.7';
+  });
+  document.querySelectorAll('.add-row-btn, .remove-btn').forEach(el => el.style.display = 'none');
+}
+
+// ============================================================
+// SUBMIT VERSION
+// ============================================================
+function submitVersion() {
+  const wf = getWorkflow();
+  if (wf.isFinal) return;
+  if (wf.submissions.length >= 3) { markFinal(); return; }
+
+  const opt = getCurrentOption();
+  const config = ADVISOR_CONFIG[currentParticipant];
+  const versionNum = wf.submissions.length + 1;
+
+  document.getElementById('modalTitle').textContent = `Soumettre la version ${versionNum} de votre cahier`;
+  document.getElementById('modalDescription').textContent =
+    versionNum === 1
+      ? 'Votre brouillon initial sera transmis à votre conseiller 1+1. Il le révisera avant votre première rencontre. Vous pourrez continuer à le modifier.'
+      : `Votre version révisée (v${versionNum}) sera transmise à votre conseiller. Vous pourrez encore la bonifier après votre rencontre.`;
+  document.getElementById('advisorName').textContent = `${config.advisor} (${config.email})`;
+
+  document.getElementById('bookingSection').style.display = 'block';
+  document.getElementById('bookingLink').href = opt.dataset.booking;
+
+  document.getElementById('submitModal').classList.add('show');
+}
+
+function confirmSubmit() {
+  const wf = getWorkflow();
+  const versionNum = wf.submissions.length + 1;
+  const now = new Date().toISOString();
+
+  wf.submissions.push({ version: versionNum, date: now });
+  saveWorkflow(wf);
+
+  closeModal('submitModal');
+  saveData();
+  updateWorkflowUI();
+
+  // Auto-generate PPTX and open mailto to marc@ + philippe@
+  autoSendPPTX(`Version ${versionNum}`);
+}
+
+// ============================================================
+// MARK FINAL
+// ============================================================
+function markFinal() {
+  const config = ADVISOR_CONFIG[currentParticipant];
+  document.getElementById('finalAdvisorName').textContent = `${config.advisor} (${config.email})`;
+  document.getElementById('finalModal').classList.add('show');
+}
+
+function confirmFinal() {
+  const wf = getWorkflow();
+  wf.isFinal = true;
+  wf.finalDate = new Date().toISOString();
+  saveWorkflow(wf);
+
+  closeModal('finalModal');
+  saveData();
+  updateWorkflowUI();
+
+  // Auto-generate PPTX and open mailto to marc@ + philippe@
+  autoSendPPTX('VERSION FINALE');
+}
+
+// ============================================================
+// EMAIL BODY BUILDER
+// ============================================================
+function buildEmailBody(opt, version, data) {
+  let lines = [];
+  lines.push(`Cahier de préparation — Offsite stratégique Palmex`);
+  lines.push(`${opt.dataset.name} — ${opt.dataset.dept}`);
+  lines.push(`Version : ${version}`);
+  lines.push(`Date : ${new Date().toLocaleDateString('fr-CA')}`);
+  lines.push('');
+  lines.push('═══════════════════════════════════════');
+  lines.push('SECTION 1 — ENJEUX D\'ENTREPRISE (12 MOIS)');
+  lines.push('═══════════════════════════════════════');
+  for (let i = 1; i <= 5; i++) {
+    const v = data[`enjeu_entreprise_${i}`];
+    if (v && v.trim()) lines.push(`\nEnjeu ${i} :\n${v.trim()}`);
+  }
+
+  lines.push('\n═══════════════════════════════════════');
+  lines.push('SECTION 2 — FONCTIONS & MATURITÉ');
+  lines.push('═══════════════════════════════════════');
+  const matBody = document.getElementById('maturity-body');
+  if (matBody) {
+    Array.from(matBody.children).forEach((tr, i) => {
+      const fnInput = tr.querySelector('input[type="text"]');
+      const ranges = tr.querySelectorAll('input[type="range"]');
+      if (fnInput && fnInput.value.trim()) {
+        const actuel = ranges[0] ? ranges[0].value : '?';
+        const cible = ranges[1] ? ranges[1].value : '?';
+        const ecart = (ranges[0] && ranges[1]) ? (parseInt(ranges[1].value) - parseInt(ranges[0].value)) : 0;
+        lines.push(`${fnInput.value.trim()} — Actuel : ${actuel}/10 | Cible 1 an : ${cible}/10 | Écart : ${ecart > 0 ? '+' : ''}${ecart}`);
+      }
+    });
+  }
+
+  lines.push('\n═══════════════════════════════════════');
+  lines.push('SECTION 3 — ENJEUX DU DÉPARTEMENT');
+  lines.push('═══════════════════════════════════════');
+  for (let i = 1; i <= 5; i++) {
+    const v = data[`enjeu_dept_${i}`];
+    if (v && v.trim()) lines.push(`\nEnjeu ${i} :\n${v.trim()}`);
+  }
+
+  lines.push('\n═══════════════════════════════════════');
+  lines.push('SECTION 4 — OBJECTIFS & PROJETS');
+  lines.push('═══════════════════════════════════════');
+  for (let o = 1; o <= objectiveCount; o++) {
+    const objName = data[`obj_${o}_name`];
+    if (!objName || !objName.trim()) continue;
+    lines.push(`\n▶ OBJECTIF ${o} : ${objName.trim()}`);
+    const pc = document.getElementById(`projects-obj-${o}`);
+    if (pc) {
+      for (let p = 1; p <= pc.children.length; p++) {
+        const pName = data[`obj_${o}_proj_${p}_name`] || '';
+        if (!pName.trim()) continue;
+        lines.push(`  Projet ${p} : ${pName.trim()}`);
+        const fields = [
+          ['Résultats attendus', data[`obj_${o}_proj_${p}_results`]],
+          ['Collaborateurs', data[`obj_${o}_proj_${p}_collab`]],
+          ['Budget', data[`obj_${o}_proj_${p}_budget`]],
+          ['Impact', data[`obj_${o}_proj_${p}_impact`]],
+          ['Effort', data[`obj_${o}_proj_${p}_effort`]],
+          ['Risques', data[`obj_${o}_proj_${p}_risks`]],
+        ];
+        fields.forEach(([label, val]) => {
+          if (val && val.trim()) lines.push(`    ${label} : ${val.trim()}`);
+        });
+        const quarters = [];
+        if (data[`obj_${o}_proj_${p}_q1`]) quarters.push('Q1');
+        if (data[`obj_${o}_proj_${p}_q2`]) quarters.push('Q2');
+        if (data[`obj_${o}_proj_${p}_q3`]) quarters.push('Q3');
+        if (data[`obj_${o}_proj_${p}_q4`]) quarters.push('Q4');
+        if (quarters.length) lines.push(`    Périodes : ${quarters.join(', ')}`);
+      }
+    }
+  }
+
+  return lines.join('\n');
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function getCurrentOption() {
+  const sel = document.getElementById('participant');
+  return sel.options[sel.selectedIndex];
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+
+// ============================================================
+// SECTION TOGGLE
+// ============================================================
+function toggleSection(header) {
+  const body = header.nextElementSibling;
+  body.classList.toggle('hidden');
+  header.classList.toggle('collapsed');
+}
+
+// ============================================================
+// MATURITY TABLE
+// ============================================================
+function addMaturityRow() {
+  const tbody = document.getElementById('maturity-body');
+  const idx = tbody.children.length + 1;
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><input type="text" data-field="maturity_fn_${idx}" placeholder="Ex: Gestion des commandes"></td>
+    <td>
+      <div class="maturity-slider">
+        <input type="range" min="1" max="10" value="5" oninput="this.nextElementSibling.textContent=this.value; markUnsaved();" data-field="maturity_score_${idx}">
+        <span class="maturity-val">5</span>
+      </div>
+    </td>
+    <td>
+      <div class="maturity-slider">
+        <input type="range" min="1" max="10" value="7" oninput="this.nextElementSibling.textContent=this.value; markUnsaved();" data-field="maturity_target_${idx}">
+        <span class="maturity-val">7</span>
+      </div>
+    </td>
+    <td style="text-align:center;">
+      <button class="remove-btn" onclick="this.closest('tr').remove(); markUnsaved();" title="Retirer">&times;</button>
+    </td>
+  `;
+  tbody.appendChild(tr);
+}
+
+// ============================================================
+// OBJECTIVES & PROJECTS
+// ============================================================
+function addObjective() {
+  if (objectiveCount >= MAX_OBJECTIVES) return;
+  objectiveCount++;
+  const n = objectiveCount;
+  const container = document.getElementById('objectives-container');
+  const card = document.createElement('div');
+  card.className = 'objective-card';
+  card.id = `obj-${n}`;
+  card.innerHTML = `
+    <div class="objective-header">
+      <span class="obj-num">OBJ ${n}</span>
+      <input type="text" data-field="obj_${n}_name" placeholder="Nom de l'objectif (ex: Augmenter le nombre de distributeurs actifs)" oninput="markUnsaved()">
+    </div>
+    <div class="objective-body">
+      <div id="projects-obj-${n}"></div>
+      <button class="add-row-btn add-project-btn" data-obj="${n}" onclick="addProject(${n})" style="margin-top:0.5rem;">+ Ajouter un projet</button>
+    </div>
+  `;
+  container.appendChild(card);
+  addProject(n);
+  if (objectiveCount >= MAX_OBJECTIVES) document.getElementById('add-obj-btn').style.display = 'none';
+}
+
+function addProject(objIdx) {
+  const projContainer = document.getElementById(`projects-obj-${objIdx}`);
+  const projCount = projContainer.children.length + 1;
+  if (projCount > MAX_PROJECTS) return;
+  const pCard = document.createElement('div');
+  pCard.className = 'project-card';
+  pCard.innerHTML = `
+    <h4>Projet ${projCount}</h4>
+    <button class="remove-btn" onclick="removeProject(this, ${objIdx})" title="Retirer">&times;</button>
+    <div class="project-grid">
+      <div class="full"><label>Nom du projet</label><input type="text" data-field="obj_${objIdx}_proj_${projCount}_name" placeholder="Nom descriptif du projet" oninput="markUnsaved()"></div>
+      <div class="full"><label>Résultats attendus</label><textarea data-field="obj_${objIdx}_proj_${projCount}_results" placeholder="Quels résultats concrets et mesurables ?" rows="2" oninput="markUnsaved()"></textarea></div>
+      <div><label>Collaborateurs impliqués</label><input type="text" data-field="obj_${objIdx}_proj_${projCount}_collab" placeholder="Noms ou départements" oninput="markUnsaved()"></div>
+      <div><label>Budget requis ($)</label><input type="text" data-field="obj_${objIdx}_proj_${projCount}_budget" placeholder="Ex: 15 000 $" oninput="markUnsaved()"></div>
+      <div><label>Impact sur objectifs</label><select data-field="obj_${objIdx}_proj_${projCount}_impact" class="effort-select" onchange="markUnsaved()"><option value="">— Sélectionner —</option><option value="critique">Critique — Bloquant</option><option value="eleve">Élevé — Accélérateur majeur</option><option value="moyen">Moyen — Contributeur</option><option value="faible">Faible — Nice to have</option></select></div>
+      <div><label>Effort estimé</label><select data-field="obj_${objIdx}_proj_${projCount}_effort" class="effort-select" onchange="markUnsaved()"><option value="">— Sélectionner —</option><option value="xs">XS — Quelques jours</option><option value="s">S — 1 à 2 semaines</option><option value="m">M — 1 mois</option><option value="l">L — 1 trimestre</option><option value="xl">XL — Plusieurs trimestres</option></select></div>
+      <div class="full"><label>Risques identifiés</label><textarea data-field="obj_${objIdx}_proj_${projCount}_risks" placeholder="Quels sont les risques ou dépendances ?" rows="2" oninput="markUnsaved()"></textarea></div>
+      <div class="full"><label>Périodes de réalisation</label><div class="quarter-checks"><label><input type="checkbox" data-field="obj_${objIdx}_proj_${projCount}_q1" onchange="markUnsaved()"> Q1</label><label><input type="checkbox" data-field="obj_${objIdx}_proj_${projCount}_q2" onchange="markUnsaved()"> Q2</label><label><input type="checkbox" data-field="obj_${objIdx}_proj_${projCount}_q3" onchange="markUnsaved()"> Q3</label><label><input type="checkbox" data-field="obj_${objIdx}_proj_${projCount}_q4" onchange="markUnsaved()"> Q4</label></div></div>
+    </div>
+  `;
+  projContainer.appendChild(pCard);
+  if (projCount >= MAX_PROJECTS) {
+    const addBtn = document.querySelector(`.add-project-btn[data-obj="${objIdx}"]`);
+    if (addBtn) addBtn.style.display = 'none';
+  }
+  markUnsaved();
+}
+
+function removeProject(btn, objIdx) {
+  btn.closest('.project-card').remove();
+  const projContainer = document.getElementById(`projects-obj-${objIdx}`);
+  if (projContainer.children.length < MAX_PROJECTS) {
+    const addBtn = document.querySelector(`.add-project-btn[data-obj="${objIdx}"]`);
+    if (addBtn) addBtn.style.display = '';
+  }
+  markUnsaved();
+}
+
+// ============================================================
+// SAVE / LOAD
+// ============================================================
+function getStorageKey() { return `palmex_offsite_${currentParticipant}`; }
+
+function collectData() {
+  const data = { participant: currentParticipant, timestamp: new Date().toISOString() };
+  document.querySelectorAll('[data-field]').forEach(el => {
+    if (el.type === 'checkbox') data[el.dataset.field] = el.checked;
+    else if (el.type === 'range') data[el.dataset.field] = el.value;
+    else data[el.dataset.field] = el.value;
+  });
+  data._objectiveCount = objectiveCount;
+  data._maturityCount = document.getElementById('maturity-body').children.length;
+  for (let i = 1; i <= objectiveCount; i++) {
+    const pc = document.getElementById(`projects-obj-${i}`);
+    if (pc) data[`_projCount_${i}`] = pc.children.length;
+  }
+  return data;
+}
+
+function saveData() {
+  if (!currentParticipant) return;
+  try {
+    localStorage.setItem(getStorageKey(), JSON.stringify(collectData()));
+    document.getElementById('saveDot').className = 'save-dot';
+    document.getElementById('saveStatus').textContent = 'Sauvegardé';
+  } catch(e) { showToast('Erreur de sauvegarde'); }
+}
+
+function loadData() {
+  if (!currentParticipant) return;
+  try {
+    const raw = localStorage.getItem(getStorageKey());
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    const matBody = document.getElementById('maturity-body');
+    const targetRows = data._maturityCount || 5;
+    for (let i = matBody.children.length; i < targetRows; i++) addMaturityRow();
+    const targetObj = data._objectiveCount || 1;
+    for (let i = objectiveCount + 1; i <= targetObj; i++) addObjective();
+    for (let i = 1; i <= targetObj; i++) {
+      const targetProj = data[`_projCount_${i}`] || 1;
+      const pc = document.getElementById(`projects-obj-${i}`);
+      if (pc) { for (let j = pc.children.length + 1; j <= targetProj; j++) addProject(i); }
+    }
+    document.querySelectorAll('[data-field]').forEach(el => {
+      if (data[el.dataset.field] !== undefined) {
+        if (el.type === 'checkbox') el.checked = data[el.dataset.field];
+        else if (el.type === 'range') { el.value = data[el.dataset.field]; const s = el.nextElementSibling; if (s) s.textContent = el.value; }
+        else el.value = data[el.dataset.field];
+      }
+    });
+    document.getElementById('saveDot').className = 'save-dot';
+    document.getElementById('saveStatus').textContent = 'Sauvegardé';
+  } catch(e) {}
+}
+
+function markUnsaved() {
+  document.getElementById('saveDot').className = 'save-dot unsaved';
+  document.getElementById('saveStatus').textContent = 'Non sauvegardé';
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(saveData, 3000);
+  updateProgress();
+}
+
+document.addEventListener('input', () => markUnsaved());
+
+// ============================================================
+// EXPORT
+// ============================================================
+function buildPPTX() {
+  const data = collectData();
+  const opt = getCurrentOption();
+  const participantName = opt.dataset.name || 'Participant';
+  const deptName = opt.dataset.dept || 'Département';
+  const pptx = new PptxGenJS();
+
+  // ═══════════════════════════════════════
+  // PALMEX DESIGN SYSTEM (template design)
+  // ═══════════════════════════════════════
+  const C = {
+    primary: '1a3a2a', primaryLight: '2d5e42',
+    accent: 'c8a951', accentLight: 'e8d48a',
+    bg: 'f7f6f2', card: 'FFFFFF',
+    text: '1e1e1e', textMuted: '6b7280',
+    border: 'e2e0da', white: 'FFFFFF',
+    red: 'DC2626', orange: 'F59E0B', greenTag: '16A34A',
+  };
+  const FONT = 'Segoe UI';
+
+  pptx.author = '1+1 × Palmex';
+  pptx.company = 'Palmex International Inc.';
+  pptx.subject = 'Cahier de préparation — Offsite stratégique 2026';
+  pptx.title = `Cahier Palmex — ${participantName}`;
+  pptx.layout = 'LAYOUT_16x9';
+
+  // ═══════════════════════════════════════
+  // TEMPLATE HELPERS
+  // ═══════════════════════════════════════
+  function addSectionHeader(slide, sectionNum, title) {
+    slide.background = { color: C.bg };
+    slide.addShape(pptx.shapes.RECTANGLE, { x: 0, y: 0, w: 10, h: 1.2, fill: { color: C.primary } });
+    // Gold circle with section number
+    slide.addShape(pptx.shapes.OVAL, { x: 0.5, y: 0.25, w: 0.7, h: 0.7, fill: { color: C.accent } });
+    slide.addText(String(sectionNum), { x: 0.5, y: 0.25, w: 0.7, h: 0.7, fontSize: 22, fontFace: FONT, color: C.primary, bold: true, align: 'center', valign: 'middle' });
+    slide.addText(title.toUpperCase(), { x: 1.4, y: 0.25, w: 8, h: 0.7, fontSize: 20, fontFace: FONT, color: C.white, bold: true, valign: 'middle', charSpacing: 2 });
+  }
+
+  function addCard(slide, x, y, w, h, opts) {
+    opts = opts || {};
+    slide.addShape(pptx.shapes.ROUNDED_RECTANGLE, { x: x, y: y, w: w, h: h, fill: { color: C.card }, shadow: { type: 'outer', color: '000000', blur: 4, offset: 1, angle: 135, opacity: 0.08 }, rectRadius: 0.08 });
+    if (opts.leftBorder) {
+      slide.addShape(pptx.shapes.RECTANGLE, { x: x, y: y + 0.08, w: 0.05, h: h - 0.16, fill: { color: opts.leftBorder } });
+    }
+  }
+
+  function addEnjeuCard(slide, num, text, x, y, w) {
+    var h = 0.7;
+    addCard(slide, x, y, w, h, { leftBorder: C.accent });
+    slide.addShape(pptx.shapes.OVAL, { x: x + 0.15, y: y + 0.15, w: 0.4, h: 0.4, fill: { color: C.primary } });
+    slide.addText(String(num), { x: x + 0.15, y: y + 0.15, w: 0.4, h: 0.4, fontSize: 14, fontFace: FONT, color: C.accent, bold: true, align: 'center', valign: 'middle' });
+    slide.addText(text, { x: x + 0.7, y: y + 0.05, w: w - 0.9, h: h - 0.1, fontSize: 11, fontFace: FONT, color: C.text, valign: 'middle', wrap: true });
+  }
+
+  function addMiniHeader(slide, title) {
+    slide.background = { color: C.bg };
+    slide.addShape(pptx.shapes.RECTANGLE, { x: 0, y: 0, w: 10, h: 0.6, fill: { color: C.primary } });
+    slide.addText(title.toUpperCase(), { x: 0.5, y: 0, w: 9, h: 0.6, fontSize: 13, fontFace: FONT, color: C.accent, bold: true, valign: 'middle' });
+  }
+
+  // Impact/effort labels
+  const IMPACT_LABELS = { critique: 'Critique — Bloquant', eleve: 'Élevé — Accélérateur majeur', moyen: 'Moyen — Contributeur', faible: 'Faible — Nice to have' };
+  const EFFORT_LABELS = { xs: 'XS — Quelques jours', s: 'S — 1 à 2 semaines', m: 'M — 1 mois', l: 'L — 1 trimestre', xl: 'XL — Plusieurs trimestres' };
+  const IMPACT_COLORS = { critique: C.red, eleve: C.orange, moyen: '3B82F6', faible: C.textMuted };
+
+  // ═══════════════════════════════════════
+  // SLIDE 1 — COVER (template design)
+  // ═══════════════════════════════════════
+  const s1 = pptx.addSlide();
+  s1.background = { color: C.primary };
+  // Gold accent line top
+  s1.addShape(pptx.shapes.RECTANGLE, { x: 0, y: 0, w: 10, h: 0.06, fill: { color: C.accent } });
+  s1.addText('CAHIER DE PRÉPARATION', { x: 0.8, y: 1.0, w: 8.4, h: 0.6, fontSize: 14, fontFace: FONT, color: C.accent, bold: true, charSpacing: 6 });
+  s1.addText('Offsite stratégique\nPalmex International', { x: 0.8, y: 1.6, w: 8.4, h: 1.8, fontSize: 36, fontFace: FONT, color: C.white, bold: true, lineSpacingMultiple: 1.2 });
+  // Gold divider
+  s1.addShape(pptx.shapes.RECTANGLE, { x: 0.8, y: 3.6, w: 2, h: 0.04, fill: { color: C.accent } });
+  // Participant info card
+  addCard(s1, 0.8, 4.0, 4.5, 1.2);
+  s1.addText([
+    { text: participantName, options: { fontSize: 18, bold: true, color: C.primary, breakLine: true } },
+    { text: deptName, options: { fontSize: 13, color: C.textMuted, breakLine: true } },
+    { text: '8 et 9 juin 2026', options: { fontSize: 13, color: C.textMuted } }
+  ], { x: 1.0, y: 4.1, w: 4.1, h: 1.0, fontFace: FONT, valign: 'middle' });
+  // Bottom credit
+  s1.addText('Préparé avec 1+1', { x: 6, y: 6.5, w: 3.5, h: 0.4, fontSize: 11, fontFace: FONT, color: C.textMuted, align: 'right' });
+
+  // ═══════════════════════════════════════
+  // SLIDE 2 — ENJEUX ENTREPRISE (FIXED: enjeu_entreprise_*)
+  // ═══════════════════════════════════════
+  const s2 = pptx.addSlide();
+  addSectionHeader(s2, 1, "Enjeux d'entreprise (12 mois)");
+
+  let enjeuCount = 0;
+  for (let i = 1; i <= 5; i++) {
+    const val = data[`enjeu_entreprise_${i}`] || '';
+    if (!val.trim()) continue;
+    addEnjeuCard(s2, i, val.trim(), 0.5, 1.6 + enjeuCount * 0.85, 9);
+    enjeuCount++;
+  }
+  if (enjeuCount === 0) {
+    s2.addText('Aucun enjeu saisi', { x: 1, y: 3, w: 8, h: 0.5, fontSize: 14, fontFace: FONT, color: C.textMuted, italic: true, align: 'center' });
+  }
+
+  // ═══════════════════════════════════════
+  // SLIDE 3 — MATURITÉ DES FONCTIONS
+  // ═══════════════════════════════════════
+  const s3 = pptx.addSlide();
+  addSectionHeader(s3, 2, 'Fonctions & Maturité');
+
+  const matRows = [[
+    { text: 'Fonction', options: { fill: { color: C.primary }, color: C.white, bold: true, fontSize: 13, fontFace: FONT, align: 'center', valign: 'middle' } },
+    { text: 'Actuel', options: { fill: { color: C.primary }, color: C.white, bold: true, fontSize: 13, fontFace: FONT, align: 'center', valign: 'middle' } },
+    { text: 'Cible 1 an', options: { fill: { color: C.primary }, color: C.white, bold: true, fontSize: 13, fontFace: FONT, align: 'center', valign: 'middle' } },
+    { text: 'Écart', options: { fill: { color: C.primary }, color: C.white, bold: true, fontSize: 13, fontFace: FONT, align: 'center', valign: 'middle' } }
+  ]];
+
+  const matCount = data._maturityCount || 5;
+  for (let i = 1; i <= matCount; i++) {
+    const fn = data[`maturity_fn_${i}`] || '';
+    const score = parseInt(data[`maturity_score_${i}`] || '5');
+    const target = parseInt(data[`maturity_target_${i}`] || '7');
+    if (!fn.trim()) continue;
+    const gap = target - score;
+    const ecartText = gap === 0 ? '0' : (gap > 0 ? `+${gap}` : `${gap}`);
+    const ecartColor = gap === 0 ? C.textMuted : '2d5e42';
+    const ecartBg = gap === 0 ? 'f3f4f6' : 'ecfdf5';
+    matRows.push([
+      { text: fn.trim(), options: { fontSize: 12, fontFace: FONT, color: C.text, bold: true, valign: 'middle' } },
+      { text: `${score}/10`, options: { fontSize: 12, fontFace: FONT, color: C.textMuted, align: 'center', valign: 'middle' } },
+      { text: `${target}/10`, options: { fontSize: 12, fontFace: FONT, color: C.primary, align: 'center', bold: true, valign: 'middle' } },
+      { text: ecartText, options: { fontSize: 12, fontFace: FONT, color: ecartColor, align: 'center', bold: true, valign: 'middle', fill: { color: ecartBg } } }
+    ]);
+  }
+
+  if (matRows.length > 1) {
+    const rowHeights = matRows.map(function() { return 0.5; });
+    s3.addTable(matRows, { x: 0.8, y: 1.8, w: 8.4, colW: [3.5, 1.5, 1.5, 1.9], rowH: rowHeights, border: { pt: 0.5, color: C.border }, autoPage: false });
+  } else {
+    s3.addText('Aucune fonction évaluée', { x: 1, y: 3, w: 8, h: 0.5, fontSize: 14, fontFace: FONT, color: C.textMuted, italic: true, align: 'center' });
+  }
+
+  // ═══════════════════════════════════════
+  // SLIDE 4 — ENJEUX DÉPARTEMENT
+  // ═══════════════════════════════════════
+  const s4 = pptx.addSlide();
+  addSectionHeader(s4, 3, 'Enjeux du département');
+
+  enjeuCount = 0;
+  for (let i = 1; i <= 5; i++) {
+    const val = data[`enjeu_dept_${i}`] || '';
+    if (!val.trim()) continue;
+    addEnjeuCard(s4, i, val.trim(), 0.5, 1.6 + enjeuCount * 0.85, 9);
+    enjeuCount++;
+  }
+  if (enjeuCount === 0) {
+    s4.addText('Aucun enjeu départemental saisi', { x: 1, y: 3, w: 8, h: 0.5, fontSize: 14, fontFace: FONT, color: C.textMuted, italic: true, align: 'center' });
+  }
+
+  // ═══════════════════════════════════════
+  // SLIDES 5+ — OBJECTIFS & PROJETS
+  // ═══════════════════════════════════════
+  let sectionNum = 4;
+
+  for (let o = 1; o <= objectiveCount; o++) {
+    const objName = data[`obj_${o}_name`] || '';
+    if (!objName.trim()) continue;
+
+    // --- Objective overview slide ---
+    const sObj = pptx.addSlide();
+    addSectionHeader(sObj, sectionNum, 'Objectifs & Projets');
+    sectionNum++;
+
+    // Objective title bar
+    sObj.addShape(pptx.shapes.RECTANGLE, { x: 0.5, y: 1.5, w: 9, h: 0.55, fill: { color: C.primary } });
+    sObj.addText(`OBJECTIF ${o} : ${objName.trim()}`, { x: 0.7, y: 1.5, w: 8.6, h: 0.55, fontSize: 15, fontFace: FONT, color: C.accent, bold: true, valign: 'middle' });
+
+    // Collect projects for this objective
+    const pc = document.getElementById(`projects-obj-${o}`);
+    const projTotal = pc ? pc.children.length : 0;
+    const projects = [];
+    for (let p = 1; p <= projTotal; p++) {
+      const pName = data[`obj_${o}_proj_${p}_name`] || '';
+      if (!pName.trim()) continue;
+      projects.push({
+        num: p,
+        name: pName.trim(),
+        results: (data[`obj_${o}_proj_${p}_results`] || '').trim(),
+        collab: (data[`obj_${o}_proj_${p}_collab`] || '').trim(),
+        budget: (data[`obj_${o}_proj_${p}_budget`] || '').trim(),
+        impact: data[`obj_${o}_proj_${p}_impact`] || '',
+        effort: data[`obj_${o}_proj_${p}_effort`] || '',
+        risks: (data[`obj_${o}_proj_${p}_risks`] || '').trim(),
+        q1: data[`obj_${o}_proj_${p}_q1`],
+        q2: data[`obj_${o}_proj_${p}_q2`],
+        q3: data[`obj_${o}_proj_${p}_q3`],
+        q4: data[`obj_${o}_proj_${p}_q4`]
+      });
+    }
+
+    // List project names as cards on overview slide
+    projects.forEach(function(proj, idx) {
+      var py = 2.3 + idx * 0.6;
+      if (py > 5.8) return; // limit to fit on slide
+      addCard(sObj, 0.5, py, 9, 0.5, { leftBorder: C.accent });
+      sObj.addText(`Projet ${proj.num} — ${proj.name}`, { x: 0.7, y: py + 0.05, w: 8.6, h: 0.4, fontSize: 12, fontFace: FONT, color: C.text, valign: 'middle' });
+    });
+
+    if (projects.length === 0) {
+      sObj.addText('Aucun projet défini pour cet objectif', { x: 1, y: 3.5, w: 8, h: 0.5, fontSize: 12, fontFace: FONT, color: C.textMuted, italic: true, align: 'center' });
+      continue;
+    }
+
+    // --- Project detail slides: 2 projects per slide, two-column layout ---
+    for (let pi = 0; pi < projects.length; pi += 2) {
+      const detailSlide = pptx.addSlide();
+      const contLabel = pi > 0 ? ' (suite)' : '';
+      addMiniHeader(detailSlide, `Objectif ${o} — ${objName.trim()}${contLabel}`);
+
+      for (let col = 0; col < 2; col++) {
+        const proj = projects[pi + col];
+        if (!proj) continue;
+
+        const xBase = col === 0 ? 0.3 : 5.1;
+        const cardW = 4.6;
+
+        // Build detail lines
+        const details = [];
+        if (proj.results) details.push({ label: 'Résultats attendus', value: proj.results, color: C.text });
+        if (proj.collab) details.push({ label: 'Collaborateurs', value: proj.collab, color: C.text });
+        if (proj.budget) details.push({ label: 'Budget requis', value: proj.budget, color: C.text });
+        if (proj.impact) details.push({ label: 'Impact', value: IMPACT_LABELS[proj.impact] || proj.impact, color: IMPACT_COLORS[proj.impact] || C.text });
+        if (proj.effort) details.push({ label: 'Effort', value: EFFORT_LABELS[proj.effort] || proj.effort, color: C.text });
+        if (proj.risks) details.push({ label: 'Risques', value: proj.risks, color: C.red });
+        const quarters = [];
+        if (proj.q1) quarters.push('Q1');
+        if (proj.q2) quarters.push('Q2');
+        if (proj.q3) quarters.push('Q3');
+        if (proj.q4) quarters.push('Q4');
+        if (quarters.length) details.push({ label: 'Réalisation', value: quarters.join('  ·  '), color: C.primary });
+
+        // Compute card height based on content
+        var cardH = Math.max(2.0, 1.0 + details.length * 0.55);
+        if (cardH > 5.2) cardH = 5.2;
+
+        addCard(detailSlide, xBase, 0.85, cardW, cardH, { leftBorder: C.primaryLight });
+
+        // Project title
+        detailSlide.addText(`Projet ${proj.num} : ${proj.name}`, { x: xBase + 0.2, y: 0.9, w: cardW - 0.4, h: 0.4, fontSize: 13, fontFace: FONT, color: C.primary, bold: true });
+
+        // Detail fields
+        var fieldY = 1.35;
+        details.forEach(function(d) {
+          detailSlide.addText(d.label + ' :', { x: xBase + 0.2, y: fieldY, w: cardW - 0.4, h: 0.22, fontSize: 9, fontFace: FONT, color: C.accent, bold: true });
+          fieldY += 0.22;
+          detailSlide.addText(d.value, { x: xBase + 0.2, y: fieldY, w: cardW - 0.4, h: 0.28, fontSize: 9, fontFace: FONT, color: d.color, valign: 'top', wrap: true });
+          fieldY += 0.33;
+        });
+      }
+    }
+  }
+
+  return { pptx, fileName: `Cahier-Palmex-${participantName.replace(/\s+/g, '-')}.pptx` };
+}
+
+function exportPPTX() {
+  if (typeof PptxGenJS === 'undefined') {
+    showToast('Chargement en cours… Réessayez dans 5 secondes.');
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/gh/gitbrent/PptxGenJS@3.12.0/dist/pptxgen.bundle.js';
+    s.onload = () => showToast('Prêt — cliquez à nouveau sur Exporter');
+    document.head.appendChild(s);
+    return;
+  }
+  const { pptx, fileName } = buildPPTX();
+  pptx.writeFile({ fileName }).then(() => {
+    showToast('PowerPoint exporté avec succès');
+  }).catch(err => {
+    console.error(err);
+    showToast('Erreur lors de l\'export');
+  });
+}
+
+function autoSendPPTX(versionLabel) {
+  if (typeof PptxGenJS === 'undefined') {
+    showToast('PptxGenJS non chargé — PPTX non généré');
+    return;
+  }
+  if (!SEND_ENDPOINT || SEND_ENDPOINT === 'APPS_SCRIPT_URL_PLACEHOLDER') {
+    showToast('Endpoint email non configuré — téléchargement local');
+    const { pptx, fileName } = buildPPTX();
+    pptx.writeFile({ fileName });
+    return;
+  }
+  const { pptx, fileName } = buildPPTX();
+  const opt = getCurrentOption();
+  const participantName = opt.dataset.name || 'Participant';
+
+  showToast('Génération du PowerPoint…');
+  pptx.write({ outputType: 'base64' }).then(base64Data => {
+    showToast('Envoi du PowerPoint en cours…');
+    return fetch(SEND_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        fileName: fileName,
+        fileData: base64Data,
+        participantName: participantName,
+        version: versionLabel,
+        summary: buildEmailBody()
+      })
+    });
+  }).then(resp => {
+    if (resp.ok || resp.type === 'opaque') {
+      showToast('PowerPoint envoyé par courriel à marc@ et philippe@');
+    } else {
+      throw new Error('Réponse serveur: ' + resp.status);
+    }
+  }).catch(err => {
+    console.error(err);
+    showToast('Erreur envoi — téléchargement local en cours…');
+    const { pptx: p2, fileName: f2 } = buildPPTX();
+    p2.writeFile({ fileName: f2 });
+  });
+}
+
+function exportPDF() {
+  document.querySelectorAll('.section-body').forEach(b => b.classList.remove('hidden'));
+  document.querySelectorAll('.section-header').forEach(h => h.classList.remove('collapsed'));
+  window.print();
+}
+
+// ============================================================
+// PROGRESS
+// ============================================================
+function updateProgress() {
+  let filled = 0, total = 0;
+  document.querySelectorAll('textarea[data-field], input[type="text"][data-field]').forEach(el => {
+    total++; if (el.value.trim()) filled++;
+  });
+  const pct = total ? Math.round((filled / total) * 100) : 0;
+  document.getElementById('progressText').textContent = `Progression : ${pct}% (${filled}/${total} champs)`;
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+
+</body>
+</html>
