@@ -739,8 +739,8 @@ textarea { resize: vertical; min-height: 80px; }
 const SEND_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwDN-eg2PI2S-4QaV7UUpqO4EzgI4fmL3ukM5MXx8B5WQxzRDv040RwHsFmc9o3rhFx/exec';
 
 // Google Apps Script endpoint for DATA persistence (Google Sheets)
-// >>> REPLACE with your deployed web app URL <<<
-const DATA_ENDPOINT = 'PASTE_YOUR_DATA_ENDPOINT_HERE';
+// Set to your deployed web app URL to enable server-side saving
+const DATA_ENDPOINT = '';
 
 const ADVISOR_CONFIG = {
   president:  { advisor: 'Philippe', email: 'philippe@1p1.ca' },
@@ -1303,35 +1303,35 @@ function collectData() {
 async function saveData() {
   if (!currentParticipant) return;
   const data = collectData();
-  const jsonStr = JSON.stringify(data);
-  // Always cache locally
-  try { localStorage.setItem(getStorageKey(), jsonStr); } catch(e) {}
-  // Save to server
-  document.getElementById('saveStatus').textContent = 'Sauvegarde…';
-  try {
-    const resp = await fetch(DATA_ENDPOINT, {
-      method: 'POST', mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ participant: currentParticipant, data: data })
-    });
-    document.getElementById('saveDot').className = 'save-dot';
-    document.getElementById('saveStatus').textContent = 'Sauvegardé ✓';
-  } catch(e) {
-    document.getElementById('saveDot').className = 'save-dot';
-    document.getElementById('saveStatus').textContent = 'Sauvegardé (local)';
+  // Always cache locally first
+  try { localStorage.setItem(getStorageKey(), JSON.stringify(data)); } catch(e) {}
+  // If server endpoint configured, also save there
+  if (DATA_ENDPOINT) {
+    document.getElementById('saveStatus').textContent = 'Sauvegarde…';
+    try {
+      await fetch(DATA_ENDPOINT, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ participant: currentParticipant, data: data })
+      });
+    } catch(e) { /* server failed, local is fine */ }
   }
+  document.getElementById('saveDot').className = 'save-dot';
+  document.getElementById('saveStatus').textContent = 'Sauvegardé';
 }
 
 async function loadData() {
   if (!currentParticipant) return;
   let data = null;
-  // 1) Try server first
-  try {
-    document.getElementById('saveStatus').textContent = 'Chargement…';
-    const resp = await fetch(DATA_ENDPOINT + '?participant=' + encodeURIComponent(currentParticipant));
-    const result = await resp.json();
-    if (result.found && result.data) data = result.data;
-  } catch(e) { /* server unavailable, fallback */ }
+  // 1) Try server first (only if endpoint configured)
+  if (DATA_ENDPOINT) {
+    try {
+      document.getElementById('saveStatus').textContent = 'Chargement…';
+      const resp = await fetch(DATA_ENDPOINT + '?participant=' + encodeURIComponent(currentParticipant));
+      const result = await resp.json();
+      if (result.found && result.data) data = result.data;
+    } catch(e) { /* server unavailable, fallback */ }
+  }
   // 2) Fallback: localStorage
   if (!data) {
     try {
@@ -1363,7 +1363,7 @@ async function loadData() {
     }
   });
   document.getElementById('saveDot').className = 'save-dot';
-  document.getElementById('saveStatus').textContent = 'Sauvegardé ✓';
+  document.getElementById('saveStatus').textContent = 'Sauvegardé';
 }
 
 function markUnsaved() {
