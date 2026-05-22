@@ -738,6 +738,10 @@ textarea { resize: vertical; min-height: 80px; }
 // Google Apps Script endpoint for PPTX email sending
 const SEND_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwDN-eg2PI2S-4QaV7UUpqO4EzgI4fmL3ukM5MXx8B5WQxzRDv040RwHsFmc9o3rhFx/exec';
 
+// Google Apps Script endpoint for DATA persistence (Google Sheets)
+// >>> REPLACE with your deployed web app URL <<<
+const DATA_ENDPOINT = 'PASTE_YOUR_DATA_ENDPOINT_HERE';
+
 const ADVISOR_CONFIG = {
   president:  { advisor: 'Philippe', email: 'philippe@1p1.ca' },
   dg:         { advisor: 'Marc',     email: 'marc@1p1.ca' },
@@ -1296,41 +1300,70 @@ function collectData() {
   return data;
 }
 
-function saveData() {
+async function saveData() {
   if (!currentParticipant) return;
+  const data = collectData();
+  const jsonStr = JSON.stringify(data);
+  // Always cache locally
+  try { localStorage.setItem(getStorageKey(), jsonStr); } catch(e) {}
+  // Save to server
+  document.getElementById('saveStatus').textContent = 'Sauvegarde…';
   try {
-    localStorage.setItem(getStorageKey(), JSON.stringify(collectData()));
-    document.getElementById('saveDot').className = 'save-dot';
-    document.getElementById('saveStatus').textContent = 'Sauvegardé';
-  } catch(e) { showToast('Erreur de sauvegarde'); }
-}
-
-function loadData() {
-  if (!currentParticipant) return;
-  try {
-    const raw = localStorage.getItem(getStorageKey());
-    const data = raw ? JSON.parse(raw) : (DEFAULT_DATA[currentParticipant] ? {...DEFAULT_DATA[currentParticipant]} : null);
-    if (!data) return;
-    const matBody = document.getElementById('maturity-body');
-    const targetRows = data._maturityCount || 5;
-    for (let i = matBody.children.length; i < targetRows; i++) addMaturityRow();
-    const targetObj = data._objectiveCount || 1;
-    for (let i = objectiveCount + 1; i <= targetObj; i++) addObjective();
-    for (let i = 1; i <= targetObj; i++) {
-      const targetProj = data[`_projCount_${i}`] || 1;
-      const pc = document.getElementById(`projects-obj-${i}`);
-      if (pc) { for (let j = pc.children.length + 1; j <= targetProj; j++) addProject(i); }
-    }
-    document.querySelectorAll('[data-field]').forEach(el => {
-      if (data[el.dataset.field] !== undefined) {
-        if (el.type === 'checkbox') el.checked = data[el.dataset.field];
-        else if (el.type === 'range') { el.value = data[el.dataset.field]; const s = el.nextElementSibling; if (s) s.textContent = el.value; }
-        else el.value = data[el.dataset.field];
-      }
+    const resp = await fetch(DATA_ENDPOINT, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ participant: currentParticipant, data: data })
     });
     document.getElementById('saveDot').className = 'save-dot';
-    document.getElementById('saveStatus').textContent = 'Sauvegardé';
-  } catch(e) {}
+    document.getElementById('saveStatus').textContent = 'Sauvegardé ✓';
+  } catch(e) {
+    document.getElementById('saveDot').className = 'save-dot';
+    document.getElementById('saveStatus').textContent = 'Sauvegardé (local)';
+  }
+}
+
+async function loadData() {
+  if (!currentParticipant) return;
+  let data = null;
+  // 1) Try server first
+  try {
+    document.getElementById('saveStatus').textContent = 'Chargement…';
+    const resp = await fetch(DATA_ENDPOINT + '?participant=' + encodeURIComponent(currentParticipant));
+    const result = await resp.json();
+    if (result.found && result.data) data = result.data;
+  } catch(e) { /* server unavailable, fallback */ }
+  // 2) Fallback: localStorage
+  if (!data) {
+    try {
+      const raw = localStorage.getItem(getStorageKey());
+      if (raw) data = JSON.parse(raw);
+    } catch(e) {}
+  }
+  // 3) Fallback: DEFAULT_DATA
+  if (!data && DEFAULT_DATA[currentParticipant]) {
+    data = {...DEFAULT_DATA[currentParticipant]};
+  }
+  if (!data) { document.getElementById('saveStatus').textContent = ''; return; }
+  // Apply data to form
+  const matBody = document.getElementById('maturity-body');
+  const targetRows = data._maturityCount || 5;
+  for (let i = matBody.children.length; i < targetRows; i++) addMaturityRow();
+  const targetObj = data._objectiveCount || 1;
+  for (let i = objectiveCount + 1; i <= targetObj; i++) addObjective();
+  for (let i = 1; i <= targetObj; i++) {
+    const targetProj = data[`_projCount_${i}`] || 1;
+    const pc = document.getElementById(`projects-obj-${i}`);
+    if (pc) { for (let j = pc.children.length + 1; j <= targetProj; j++) addProject(i); }
+  }
+  document.querySelectorAll('[data-field]').forEach(el => {
+    if (data[el.dataset.field] !== undefined) {
+      if (el.type === 'checkbox') el.checked = data[el.dataset.field];
+      else if (el.type === 'range') { el.value = data[el.dataset.field]; const s = el.nextElementSibling; if (s) s.textContent = el.value; }
+      else el.value = data[el.dataset.field];
+    }
+  });
+  document.getElementById('saveDot').className = 'save-dot';
+  document.getElementById('saveStatus').textContent = 'Sauvegardé ✓';
 }
 
 function markUnsaved() {
